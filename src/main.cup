@@ -73,7 +73,7 @@ expr              ::= expr:left op_bin:op expr:right
                       | OPENPARENT expr CLOSEPARENT {:   :}
                       | operand:operand             {:  RESULT = operand;  :};
 op_bin            ::= PLUS:o       {: RESULT = new Addition("", oleft, oright); :}
-                      | MINUS    {:   :}
+                      | MINUS:o    {: RESULT = new Soustraction("", oleft, oright);  :}
                       | TIMES    {:   :}
                       | DIVIDE   {:   :}
                       | EQUALS:o   {: RESULT = new Egal("", oleft, oright); :} 

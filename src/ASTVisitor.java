@@ -42,7 +42,7 @@ public interface ASTVisitor {
     // Object visit(Parentheses node);
     // Object visit(Pour node);
     // Object visit(Produit node);
-    // Object visit(Soustraction node);
+    Object visit(Soustraction node);
     // Object visit(SupEgal node);
     // Object visit(Superieur node);
     // Object visit(Tantque node);

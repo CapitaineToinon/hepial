@@ -1,5 +1,4 @@
 
-
 /*
  * Source code generator that walks the AST and generates code source from the AST
  *
@@ -262,14 +261,15 @@ public class SourceCodeGenerator implements ASTVisitor {
      * code += ";";
      * return null;
      * }
-     * 
-     * public Object visit(Soustraction node){
-     * node.getGauche().accept(this);
-     * code += " - ";
-     * node.getDroite().accept(this);
-     * return null;
-     * }
-     * 
+     */
+    public Object visit(Soustraction node) {
+        node.getGauche().accept(this);
+        code += " - ";
+        node.getDroite().accept(this);
+        return null;
+    }
+
+    /*
      * public Object visit(SupEgal node){
      * node.getGauche().accept(this);
      * code += " >= ";
