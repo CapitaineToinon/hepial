@@ -1,0 +1,5 @@
+programme demo
+debutprg
+  b = 3;
+  c = c + 2;
+finprg

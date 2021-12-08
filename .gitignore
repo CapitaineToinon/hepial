@@ -30,9 +30,6 @@ replay_pid*
 .vscode/*
 !.vscode/launch.json
 
-# test files
-*.txt
-
 # ignore generated files
 src/parser.java
 src/sym.java
