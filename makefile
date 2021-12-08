@@ -25,4 +25,4 @@ sym.java parser.java: $(FILE_CUP)
 	cd $(BIN) && $(JAVAC) -d . -classpath ../$(CLASSPATH) ../$(SRC)/$<
 
 clean :
-	rm -f $(BIN)/* $(SRC)/parser.java $(SRC)/sym.java $(SRC)/$(FILE_JAVA_NAME).java $(SRC)/$(FILE_JAVA_NAME).java~
+	rm -rf $(BIN)/* $(SRC)/parser.java $(SRC)/sym.java $(SRC)/$(FILE_JAVA_NAME).java $(SRC)/$(FILE_JAVA_NAME).java~
