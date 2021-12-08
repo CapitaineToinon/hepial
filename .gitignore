@@ -35,3 +35,6 @@ src/parser.java
 src/sym.java
 src/Lexer.java
 *.java~
+
+# macos sucks
+.DS_Store
