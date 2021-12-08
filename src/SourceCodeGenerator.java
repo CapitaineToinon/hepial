@@ -137,14 +137,15 @@ public class SourceCodeGenerator implements ASTVisitor {
      * node.getDroite().accept(this);
      * return null;
      * }
-     * 
-     * public Object visit(Division node){
-     * node.getGauche().accept(this);
-     * code += " / ";
-     * node.getDroite().accept(this);
-     * return null;
-     * }
-     * 
+     */
+    public Object visit(Division node) {
+        node.getGauche().accept(this);
+        code += " / ";
+        node.getDroite().accept(this);
+        return null;
+    }
+
+    /*
      * public Object visit(Ecrire node){
      * code += "ecrire ";
      * node.getSource().accept(this);
@@ -247,14 +248,15 @@ public class SourceCodeGenerator implements ASTVisitor {
      * code += "finpour";
      * return null;
      * }
-     * 
-     * public Object visit(Produit node){
-     * node.getGauche().accept(this);
-     * code += " * ";
-     * node.getDroite().accept(this);
-     * return null;
-     * }
-     * 
+     */
+    public Object visit(Produit node) {
+        node.getGauche().accept(this);
+        code += " * ";
+        node.getDroite().accept(this);
+        return null;
+    }
+
+    /*
      * public Object visit(Retour node){
      * code += "retourne ";
      * node.getSource().accept(this);

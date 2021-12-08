@@ -3,4 +3,6 @@ debutprg
   b = 3;
   c = c + 2;
   c = c - 1;
+  c = c * 1;
+  c = c / 1;
 finprg

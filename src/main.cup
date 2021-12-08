@@ -45,9 +45,10 @@ precedence left INF, SUP, INFEQUAL, SUPEQUAL, AND, OR, DOUBLEPOINTS;
 precedence right TILDA, NOT;
 
 program           ::= header:p declar_lst STARTPRG body:instructions ENDPRG
-                    {:  p.setInstructions(instructions);
-                        System.out.println("ok, c'est good !!!!"); 
-                        RESULT = p;
+                    {:
+                      p.setInstructions(instructions);
+                      System.out.println("ok, c'est good !!!!"); 
+                      RESULT = p;
                     :};
 header            ::= PRG IDENT:id {: RESULT = new DeclarationProgramme(new Idf(id, "", idleft, idright), "", idleft, idright); :};
 declar_lst        ::=  declars {: :};
@@ -64,18 +65,18 @@ typebase          ::= TINTEGER {:   :}
 declar_const      ::= CONSTANT type IDENT EQUAL expr SEMICOLON   {:   :};
 expr              ::= expr:left op_bin:op expr:right
                       {:
-                       // build binary expression
-                         op.lierGauche(left);
-                         op.lierDroit(right);
-                         RESULT = op;  
+                        // build binary expression
+                        op.lierGauche(left);
+                        op.lierDroit(right);
+                        RESULT = op;  
                       :}
                       | op_una expr {:   :}
                       | OPENPARENT expr CLOSEPARENT {:   :}
                       | operand:operand             {:  RESULT = operand;  :};
 op_bin            ::= PLUS:o       {: RESULT = new Addition("", oleft, oright); :}
-                      | MINUS:o    {: RESULT = new Soustraction("", oleft, oright);  :}
-                      | TIMES    {:   :}
-                      | DIVIDE   {:   :}
+                      | MINUS:o    {: RESULT = new Soustraction("", oleft, oright); :}
+                      | TIMES:o    {: RESULT = new Produit("", oleft, oright); :}
+                      | DIVIDE:o   {: RESULT = new Division("", oleft, oright); :}
                       | EQUALS:o   {: RESULT = new Egal("", oleft, oright); :} 
                       | DIFF     {:   :}
                       | INF      {:   :}

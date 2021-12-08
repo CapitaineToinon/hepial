@@ -1,5 +1,4 @@
 
-
 /*
  * AST visiteur interface
 */
@@ -23,7 +22,8 @@ public interface ASTVisitor {
 
     // Object visit(DeclarationVariable node);
     // Object visit(Diff node);
-    // Object visit(Division node);
+    Object visit(Division node);
+
     // Object visit(Ecrire node);
     Object visit(Egal node);
 
@@ -37,11 +37,13 @@ public interface ASTVisitor {
     // Object visit(Lire node);
     // Object visit(Moins node);
     Object visit(Nombre node);
+
     // Object visit(Non node);
     // Object visit(Ou node);
     // Object visit(Parentheses node);
     // Object visit(Pour node);
-    // Object visit(Produit node);
+    Object visit(Produit node);
+
     Object visit(Soustraction node);
     // Object visit(SupEgal node);
     // Object visit(Superieur node);
