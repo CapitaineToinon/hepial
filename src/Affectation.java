@@ -1,4 +1,4 @@
-package nodes;
+
 
 /*
  * Represent an assignment node inside the AST.

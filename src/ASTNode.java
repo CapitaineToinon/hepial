@@ -1,4 +1,4 @@
-package nodes;
+
 
 /*
  * Base class that represent a node inside the AST.

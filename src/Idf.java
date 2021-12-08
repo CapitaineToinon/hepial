@@ -1,4 +1,4 @@
-package nodes;
+
 
 /*
  * Represent an identifier node inside the AST.

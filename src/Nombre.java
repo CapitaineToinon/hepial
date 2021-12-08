@@ -1,19 +1,19 @@
-package nodes;
+
 
 /*
- * Represent a string of characters node inside the AST.
+ * Represent a number node inside the AST.
 */
 
-public class Chaine extends Expression {
+public class Nombre extends Expression {
     /**
-     * Value contained in this string node
+     * Value contained in this number node
      */
-    private String valeur;
+    private int valeur;
 
     /**
      * Constructor
      */
-    public Chaine(String val, String fl, int line, int col) {
+    public Nombre(int val, String fl, int line, int col) {
         super(fl, line, col);
         this.valeur = val;
     }
@@ -21,7 +21,7 @@ public class Chaine extends Expression {
     /**
      * Get the node value
      */
-    public String getValeur() {
+    public int getValeur() {
         return this.valeur;
     }
 

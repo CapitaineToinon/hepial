@@ -1,4 +1,4 @@
-package nodes;
+
 
 /*
  * Represent an equal comparaison expression node inside the AST.

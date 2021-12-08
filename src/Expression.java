@@ -1,4 +1,4 @@
-package nodes;
+
 
 /*
  * Base class that represent an expression node inside the AST.

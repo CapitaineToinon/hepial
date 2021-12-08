@@ -21,8 +21,8 @@ $(FILE_JAVA_NAME).java : $(FILE_FLEX)
 sym.java parser.java: $(FILE_CUP)
 	$(JAVA) -jar $(JAVACUP) -destdir $(SRC) $(FILE_CUP)
 
-%.class : %.java
-	cd $(BIN) && $(JAVAC) -d . -classpath ../$(CLASSPATH) ../$(SRC)/$<
+%.class: %.java
+	cd $(SRC) && $(JAVAC) -d ../$(BIN) -classpath ../$(CLASSPATH) ./$<
 
-clean :
-	rm -rf $(BIN)/* $(SRC)/parser.java $(SRC)/sym.java $(SRC)/$(FILE_JAVA_NAME).java $(SRC)/$(FILE_JAVA_NAME).java~
+clean:
+	rm -rf $(BIN)/* $(SRC)/**/*.class $(SRC)/parser.java $(SRC)/sym.java $(SRC)/$(FILE_JAVA_NAME).java $(SRC)/$(FILE_JAVA_NAME).java~

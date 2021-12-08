@@ -1,4 +1,4 @@
-package nodes;
+
 
 /*
  * Base class that represent a binary relational expression node inside the AST.

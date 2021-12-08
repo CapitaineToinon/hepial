@@ -1,7 +1,4 @@
 import java.io.FileReader;
-import java_cup.runtime.*;
-import nodes.DeclarationProgramme;
-import nodes.SourceCodeGenerator;
 
 public class App {
 	public static void main(String[] args) throws Exception {

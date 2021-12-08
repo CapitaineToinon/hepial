@@ -1,4 +1,4 @@
-package nodes;
+
 
 /*
  * Base class that represent a binary arithmetique expression node inside the AST.
