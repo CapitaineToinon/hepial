@@ -160,14 +160,14 @@ public class SourceCodeGenerator implements ASTVisitor {
         return null;
     }
 
+    public Object visit(Et node) {
+        node.getGauche().accept(this);
+        code += " et ";
+        node.getDroite().accept(this);
+        return null;
+    }
+
     /*
-     * public Object visit(Et node){
-     * node.getGauche().accept(this);
-     * code += " et ";
-     * node.getDroite().accept(this);
-     * return null;
-     * }
-     * 
      * public Object visit(Faux node){
      * code += "faux";
      * return null;
@@ -178,14 +178,13 @@ public class SourceCodeGenerator implements ASTVisitor {
         return null;
     }
 
-    /*
-     * public Object visit(InfEgal node){
-     * node.getGauche().accept(this);
-     * code += " <= ";
-     * node.getDroite().accept(this);
-     * return null;
-     * }
-     */
+    public Object visit(InfEgal node) {
+        node.getGauche().accept(this);
+        code += " <= ";
+        node.getDroite().accept(this);
+        return null;
+    }
+
     public Object visit(Inferieur node) {
         node.getGauche().accept(this);
         code += " < ";
@@ -218,14 +217,15 @@ public class SourceCodeGenerator implements ASTVisitor {
      * node.getOperand().accept(this);
      * return null;
      * }
-     * 
-     * public Object visit(Ou node){
-     * node.getGauche().accept(this);
-     * code += " ou ";
-     * node.getDroite().accept(this);
-     * return null;
-     * }
-     * 
+     */
+    public Object visit(Ou node) {
+        node.getGauche().accept(this);
+        code += " ou ";
+        node.getDroite().accept(this);
+        return null;
+    }
+
+    /*
      * public Object visit(Parentheses node){
      * code += "(";
      * node.getExpression().accept(this);
@@ -272,21 +272,21 @@ public class SourceCodeGenerator implements ASTVisitor {
         return null;
     }
 
+    public Object visit(SupEgal node) {
+        node.getGauche().accept(this);
+        code += " >= ";
+        node.getDroite().accept(this);
+        return null;
+    }
+
+    public Object visit(Superieur node) {
+        node.getGauche().accept(this);
+        code += " > ";
+        node.getDroite().accept(this);
+        return null;
+    }
+
     /*
-     * public Object visit(SupEgal node){
-     * node.getGauche().accept(this);
-     * code += " >= ";
-     * node.getDroite().accept(this);
-     * return null;
-     * }
-     * 
-     * public Object visit(Superieur node){
-     * node.getGauche().accept(this);
-     * code += " > ";
-     * node.getDroite().accept(this);
-     * return null;
-     * }
-     * 
      * public Object visit(Tantque node){
      * code += "tantque ";
      * node.getCondition().accept(this);

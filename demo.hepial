@@ -7,4 +7,9 @@ debutprg
   c = c / 1;
   d = c <> b;
   d = c < b;
+  d = c > b;
+  d = c <= b;
+  d = c >= b;
+  d = c et b;
+  d = c ou b;
 finprg
