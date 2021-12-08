@@ -31,7 +31,7 @@ public interface ASTVisitor {
 
     // Object visit(Indice node);
     // Object visit(InfEgal node);
-    // Object visit(Inferieur node);
+    Object visit(Inferieur node);
     // Object visit(Lire node);
     // Object visit(Moins node);
     Object visit(Nombre node);

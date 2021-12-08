@@ -2,11 +2,11 @@
  * Represent an equal comparaison expression node inside the AST.
  */
 
-public class Egal extends Relation {
+public class Inferieur extends Relation {
     /**
      * Constructor
      */
-    public Egal(String fl, int line, int col) {
+    public Inferieur(String fl, int line, int col) {
         super(fl, line, col);
     }
 
@@ -14,21 +14,21 @@ public class Egal extends Relation {
      * Get the binary operator
      */
     public String operateur() {
-        return "==";
+        return "<";
     }
 
     /**
      * Apply the operator on the two given values.
      */
     public int apply(int gauche, int droite) {
-        return (gauche == droite) ? 1 : 0;
+        return (gauche < droite) ? 1 : 0;
     }
 
     /**
      * Apply the operator on the two given values.
      */
     public boolean apply(boolean gauche, boolean droite) {
-        return gauche == droite;
+        return (gauche ? 1 : 0) < (droite ? 1 : 0);
     }
 
     /**

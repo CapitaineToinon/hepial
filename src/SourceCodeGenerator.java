@@ -185,14 +185,15 @@ public class SourceCodeGenerator implements ASTVisitor {
      * node.getDroite().accept(this);
      * return null;
      * }
-     * 
-     * public Object visit(Inferieur node){
-     * node.getGauche().accept(this);
-     * code += " < ";
-     * node.getDroite().accept(this);
-     * return null;
-     * }
-     * 
+     */
+    public Object visit(Inferieur node) {
+        node.getGauche().accept(this);
+        code += " < ";
+        node.getDroite().accept(this);
+        return null;
+    }
+
+    /*
      * public Object visit(Lire node){
      * code += "lire ";
      * node.getDestination().accept(this);

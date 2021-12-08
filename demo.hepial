@@ -6,4 +6,5 @@ debutprg
   c = c * 1;
   c = c / 1;
   d = c <> b;
+  d = c < b;
 finprg
