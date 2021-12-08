@@ -1,5 +1,7 @@
 import java.io.FileReader;
 import java_cup.runtime.*;
+import nodes.DeclarationProgramme;
+import nodes.SourceCodeGenerator;
 
 public class App {
 	public static void main(String[] args) throws Exception {
@@ -44,7 +46,28 @@ public class App {
 		}
 
 		try {
-			myP.parse();
+
+			// on lance le parsing, et on récupère l'AST
+			DeclarationProgramme program = (DeclarationProgramme) myP.parse().value;
+			if (program == null)
+				// Aie, pas d'AST received ....
+				return;
+
+			System.out.println("ok, c'est retourné au prg java !!!!");
+			// Lecture de l'AST selon design pattern Visitor
+			// Et affichage du code d'origine
+			SourceCodeGenerator sourceGenerator = new SourceCodeGenerator();
+			System.out.println("___________ code source selon la lecture de l'arbre abstrait : _______________");
+			program.accept(sourceGenerator);
+			System.out.println(sourceGenerator.getCode());
+			System.out.println("_________________________");
+
+			// analyse sémantique
+			// todo
+
+			// production du code
+			// todo
+
 		} catch (Exception e) {
 			System.out.println("[test.java] myP.parse() failed");
 			throw e;
