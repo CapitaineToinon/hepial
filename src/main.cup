@@ -78,7 +78,7 @@ op_bin            ::= PLUS:o       {: RESULT = new Addition("", oleft, oright); 
                       | TIMES:o    {: RESULT = new Produit("", oleft, oright); :}
                       | DIVIDE:o   {: RESULT = new Division("", oleft, oright); :}
                       | EQUALS:o   {: RESULT = new Egal("", oleft, oright); :} 
-                      | DIFF     {:   :}
+                      | DIFF:o     {: RESULT = new Diff("", oleft, oright); :}
                       | INF      {:   :}
                       | SUP      {:   :}
                       | INFEQUAL {:   :}

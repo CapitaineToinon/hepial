@@ -6,6 +6,7 @@ import java.util.*;
 %line
 %column
 %cup
+%debug
 
 %{
 

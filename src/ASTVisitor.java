@@ -1,9 +1,6 @@
-
 /*
  * AST visiteur interface
-*/
-
-import java.util.*;
+ */
 
 public interface ASTVisitor {
     Object visit(Addition node);
@@ -21,7 +18,8 @@ public interface ASTVisitor {
     Object visit(DeclarationProgramme node);
 
     // Object visit(DeclarationVariable node);
-    // Object visit(Diff node);
+    Object visit(Diff node);
+
     Object visit(Division node);
 
     // Object visit(Ecrire node);

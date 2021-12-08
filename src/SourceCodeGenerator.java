@@ -130,14 +130,14 @@ public class SourceCodeGenerator implements ASTVisitor {
      * code += ";";
      * return null;
      * }
-     * 
-     * public Object visit(Diff node){
-     * node.getGauche().accept(this);
-     * code += " <> ";
-     * node.getDroite().accept(this);
-     * return null;
-     * }
      */
+    public Object visit(Diff node) {
+        node.getGauche().accept(this);
+        code += " <> ";
+        node.getDroite().accept(this);
+        return null;
+    }
+
     public Object visit(Division node) {
         node.getGauche().accept(this);
         code += " / ";
