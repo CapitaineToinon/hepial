@@ -85,19 +85,18 @@ public class SourceCodeGenerator implements ASTVisitor {
      * code += "finsi";
      * return null;
      * }
-     * 
-     * public Object visit(DeclarationConstant node){
-     * Symbole sym = TDS.getInstance().identifier(new
-     * Entree(node.getIdentifier().getNom()));
-     * 
-     * code += sym + " ";
-     * node.getIdentifier().accept(this);
-     * code += " = ";
-     * node.getConstantExpression().accept(this);
-     * code += ";";
-     * return null;
-     * }
      */
+
+    public Object visit(DeclarationConstant node) {
+        // Symbole sym = TDS.getInstance().identifier(new Entree(node.getIdentifier().getNom()));
+        // code += sym + " ";
+        // node.getIdentifier().accept(this);
+        // code += " = ";
+        // node.getConstantExpression().accept(this);
+        // code += ";";
+        return null;
+    }
+
     public Object visit(DeclarationProgramme node) {
         /*
          * TDS.getInstance().resetBlocNumber();
@@ -121,14 +120,15 @@ public class SourceCodeGenerator implements ASTVisitor {
 
     public Object visit(DeclarationVariable node) {
         /*
-        Symbole sym = TDS.getInstance().identifier(new Entree(node.getIdentifier().getNom()));
+         * Symbole sym = TDS.getInstance().identifier(new
+         * Entree(node.getIdentifier().getNom()));
+         * 
+         * code += sym + " ";
+         * node.getIdentifier().accept(this);
+         * if (!isParameterDeclaration)
+         * code += ";";
+         */
 
-        code += sym + " ";
-        node.getIdentifier().accept(this);
-        if (!isParameterDeclaration)
-            code += ";";
-        */
-        
         return null;
     }
 

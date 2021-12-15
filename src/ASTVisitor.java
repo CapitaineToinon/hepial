@@ -13,11 +13,13 @@ public interface ASTVisitor {
     Object visit(Chaine node);
 
     // Object visit(Condition node);
-    // Object visit(DeclarationConstant node);
+    Object visit(DeclarationConstant node);
+
     // Object visit(DeclarationFonction node);
     Object visit(DeclarationProgramme node);
 
     Object visit(DeclarationVariable node);
+
     Object visit(Diff node);
 
     Object visit(Division node);

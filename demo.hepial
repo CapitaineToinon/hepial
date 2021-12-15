@@ -3,6 +3,8 @@ programme demo
 entier puteputeputepute;
 entier b;
 booleen connard;
+constante entier prix = 2000;
+constante booleen isActive = vrai;
 
 debutprg
   b = 3;

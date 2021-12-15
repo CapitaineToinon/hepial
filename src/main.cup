@@ -4,8 +4,7 @@ import java.io.*;
 import java.util.*;
 
 action code {:
-// jdjdjd
-    
+
 :}
 
 terminal PRG, STARTPRG, ENDPRG, CONSTANT, SEMICOLON, STARTFUNC, ENDFUNC, OPENPARENT;
@@ -23,7 +22,7 @@ non terminal Bloc declar_lst, body;
 non terminal ArrayList<Instruction> instr_lst, declars;
 non terminal Instruction declar;
 non terminal DeclarationVariable declar_var;
-non terminal DeclarationVariable declar_const;
+non terminal DeclarationConstant declar_const;
 non terminal Expression expr, access, operand;
 non terminal for_instr;
 non terminal while_instr;
@@ -62,7 +61,7 @@ declars           ::= {: RESULT = new ArrayList(); :}
                         declarations.add(declaration);
                         RESULT = declarations;
                       :};
-declar            ::=   declar_var:d    {: RESULT = d; :}
+declar            ::= declar_var:d      {: RESULT = d; :}
                       | declar_const:d  {: RESULT = d; :};
 declar_var        ::= type:t l_ident:idfs SEMICOLON
                       {:
@@ -70,10 +69,13 @@ declar_var        ::= type:t l_ident:idfs SEMICOLON
                       :};
 l_ident           ::= IDENT:id {: RESULT = new ArrayList<Idf>(List.of(new Idf(id, "", idleft, idright))); :}
                       | l_ident:idfs COMMA IDENT:id {:  idfs.add(new Idf(id, "", idleft, idright)); :};
-type              ::= typebase   {: RESULT = new Entier();  :};
+type              ::= typebase:t {: RESULT = t;  :};
 typebase          ::= TINTEGER   {: RESULT = new Entier(); :}
-                      | TBOOLEAN {: RESULT = new Entier();  :};
-declar_const      ::= CONSTANT type IDENT EQUAL expr SEMICOLON   {:   :};
+                      | TBOOLEAN {: RESULT = new Booleen(); :};
+declar_const      ::= CONSTANT type:t IDENT EQUAL expr:e SEMICOLON
+                      {:
+                        RESULT = new DeclarationConstant(t, e, "", 0, 0);
+                      :};
 expr              ::= expr:left op_bin:op expr:right
                       {:
                         // build binary expression
