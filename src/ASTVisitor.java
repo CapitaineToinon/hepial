@@ -36,10 +36,12 @@ public interface ASTVisitor {
     Object visit(Inferieur node);
 
     // Object visit(Lire node);
-    // Object visit(Moins node);
+    Object visit(Moins node);
+
     Object visit(Nombre node);
 
-    // Object visit(Non node);
+    Object visit(Non node);
+
     Object visit(Ou node);
 
     // Object visit(Parentheses node);
@@ -51,7 +53,8 @@ public interface ASTVisitor {
     Object visit(SupEgal node);
 
     Object visit(Superieur node);
+
     // Object visit(Tantque node);
-    // Object visit(Tilda node);
+    Object visit(Tilda node);
     // Object visit(Vrai node);
 }

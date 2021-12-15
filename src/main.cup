@@ -32,7 +32,7 @@ non terminal read_instr;
 non terminal Instruction instr;
 non terminal Affectation assign;
 non terminal index;
-non terminal op_una;
+non terminal Unaire op_una;
 non terminal Binaire op_bin;
 
 non terminal l_ident;
@@ -70,7 +70,12 @@ expr              ::= expr:left op_bin:op expr:right
                         op.lierDroit(right);
                         RESULT = op;  
                       :}
-                      | op_una expr {:   :}
+                      | op_una:op expr:exp
+                      {:
+                        // build unary expression
+                        op.lier(exp);
+                        RESULT = op;
+                      :}
                       | OPENPARENT expr CLOSEPARENT {:   :}
                       | operand:operand             {:  RESULT = operand;  :};
 op_bin            ::= PLUS:o       {: RESULT = new Addition("", oleft, oright); :}
@@ -85,9 +90,9 @@ op_bin            ::= PLUS:o       {: RESULT = new Addition("", oleft, oright); 
                       | SUPEQUAL:o {: RESULT = new SupEgal("", oleft, oright); :}
                       | AND:o      {: RESULT = new Et("", oleft, oright); :}
                       | OR:o       {: RESULT = new Ou("", oleft, oright); :};
-op_una            ::= TILDA      {:   :}
-                      | NOT      {:   :}
-                      | MINUS    {:   :};
+op_una            ::= TILDA:o      {: RESULT = new Tilda("", oleft, oright);  :}
+                      | NOT:o      {: RESULT = new Non("", oleft, oright); :}
+                      | MINUS:o    {: RESULT = new Moins("", oleft, oright);  :};
 operand           ::= access:access       {: RESULT = access; :}
                       | INTEGERCONST:ib   {: RESULT = new Nombre(ib, "", ibleft, ibright); :}
                       | TRUE            {:   :}

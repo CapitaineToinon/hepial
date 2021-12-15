@@ -12,4 +12,7 @@ debutprg
   d = c >= b;
   d = c et b;
   d = c ou b;
+  b = non b;
+  b = - b;
+  b = ~ b;
 finprg

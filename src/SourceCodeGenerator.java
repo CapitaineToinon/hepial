@@ -199,25 +199,25 @@ public class SourceCodeGenerator implements ASTVisitor {
      * code += ";";
      * return null;
      * }
-     * 
-     * public Object visit(Moins node){
-     * code += "-";
-     * node.getOperand().accept(this);
-     * return null;
-     * }
      */
+
+    public Object visit(Moins node) {
+        code += "-";
+        node.getOperande().accept(this);
+        return null;
+    }
+
     public Object visit(Nombre node) {
         code += Integer.toString(node.getValeur());
         return null;
     }
 
-    /*
-     * public Object visit(Non node){
-     * code += "non ";
-     * node.getOperand().accept(this);
-     * return null;
-     * }
-     */
+    public Object visit(Non node) {
+        code += "non ";
+        node.getOperande().accept(this);
+        return null;
+    }
+
     public Object visit(Ou node) {
         node.getGauche().accept(this);
         code += " ou ";
@@ -299,13 +299,14 @@ public class SourceCodeGenerator implements ASTVisitor {
      * code += "fintantque";
      * return null;
      * }
-     * 
-     * public Object visit(Tilda node){
-     * code += "~";
-     * node.getOperand().accept(this);
-     * return null;
-     * }
-     * 
+     */
+    public Object visit(Tilda node) {
+        code += "~";
+        node.getOperande().accept(this);
+        return null;
+    }
+
+    /*
      * public Object visit(Vrai node){
      * code += "vrai";
      * return null;
