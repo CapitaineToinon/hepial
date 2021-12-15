@@ -95,8 +95,8 @@ op_una            ::= TILDA:o      {: RESULT = new Tilda("", oleft, oright);  :}
                       | MINUS:o    {: RESULT = new Moins("", oleft, oright);  :};
 operand           ::= access:access       {: RESULT = access; :}
                       | INTEGERCONST:ib   {: RESULT = new Nombre(ib, "", ibleft, ibright); :}
-                      | TRUE            {:   :}
-                      | FALSE           {:   :};
+                      | TRUE:ib           {: RESULT = new Vrai("", ibleft, ibright); :}
+                      | FALSE:ib          {: RESULT = new Faux("", ibleft, ibright); :};
 access            ::= IDENT:id   {: RESULT = new Idf(id, "", idleft, idright); :};
 body              ::= instr_lst:instructions {: RESULT = new Bloc(instructions, "", instructionsleft, instructionsright); :};
 instr_lst         ::= {: RESULT = new ArrayList(); :}
