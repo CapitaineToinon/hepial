@@ -20,8 +20,10 @@ terminal int INTEGERCONST;
 // Non terminal rules that return a RESULT value
 non terminal DeclarationProgramme program, header;
 non terminal Bloc declar_lst, body;
-non terminal ArrayList<Instruction> instr_lst, declars, declar, declar_var;
-non terminal declar_const;
+non terminal ArrayList<Instruction> instr_lst, declars;
+non terminal Instruction declar;
+non terminal DeclarationVariable declar_var;
+non terminal DeclarationVariable declar_const;
 non terminal Expression expr, access, operand;
 non terminal for_instr;
 non terminal while_instr;
@@ -35,33 +37,42 @@ non terminal index;
 non terminal Unaire op_una;
 non terminal Binaire op_bin;
 
-non terminal l_ident;
-non terminal type;
-non terminal typebase;
+non terminal ArrayList<Idf> l_ident;
+non terminal Type type;
+non terminal TypeBase typebase;
 
 // Precedences
 precedence left PLUS, MINUS, TIMES, DIVIDE, EQUALS, DIFF;
 precedence left INF, SUP, INFEQUAL, SUPEQUAL, AND, OR, DOUBLEPOINTS;
 precedence right TILDA, NOT;
 
-program           ::= header:p declar_lst STARTPRG body:instructions ENDPRG
+program           ::= header:p declar_lst:decralations STARTPRG body:instructions ENDPRG
                     {:
+                      p.setDeclarations(decralations);
                       p.setInstructions(instructions);
                       System.out.println("ok, c'est good !!!!"); 
                       RESULT = p;
                     :};
 header            ::= PRG IDENT:id {: RESULT = new DeclarationProgramme(new Idf(id, "", idleft, idright), "", idleft, idright); :};
-declar_lst        ::=  declars {: :};
-declars           ::= {: :}
-                      | declars declar {: :};
-declar            ::= declar_var {: :}
-                      | declar_const {: :};
-declar_var        ::= type l_ident SEMICOLON   {:  :};
-l_ident           ::= IDENT {: :}
-                      | l_ident COMMA IDENT {:   :};
-type              ::= typebase {:   :};
-typebase          ::= TINTEGER {:   :}
-                      | TBOOLEAN {:   :};
+declar_lst        ::= declars:decralations {: RESULT = new Bloc(decralations, "", decralationsleft, decralationsright); :};
+declars           ::= {: RESULT = new ArrayList(); :}
+                      | declars:declarationList declar:declaration
+                      {: 
+                        ArrayList<Instruction> declarations = new ArrayList<Instruction>(declarationList);
+                        declarations.add(declaration);
+                        RESULT = declarations;
+                      :};
+declar            ::=   declar_var:d    {: RESULT = d; :}
+                      | declar_const:d  {: RESULT = d; :};
+declar_var        ::= type:t l_ident:idfs SEMICOLON
+                      {:
+                        RESULT = new DeclarationVariable(t, idfs, "", 0, 0);
+                      :};
+l_ident           ::= IDENT:id {: RESULT = new ArrayList<Idf>(List.of(new Idf(id, "", idleft, idright))); :}
+                      | l_ident:idfs COMMA IDENT:id {:  idfs.add(new Idf(id, "", idleft, idright)); :};
+type              ::= typebase   {: RESULT = new Entier();  :};
+typebase          ::= TINTEGER   {: RESULT = new Entier(); :}
+                      | TBOOLEAN {: RESULT = new Entier();  :};
 declar_const      ::= CONSTANT type IDENT EQUAL expr SEMICOLON   {:   :};
 expr              ::= expr:left op_bin:op expr:right
                       {:

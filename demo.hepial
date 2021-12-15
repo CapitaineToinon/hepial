@@ -1,4 +1,9 @@
 programme demo
+
+entier puteputeputepute;
+entier b;
+booleen connard;
+
 debutprg
   b = 3;
   c = c + 2;

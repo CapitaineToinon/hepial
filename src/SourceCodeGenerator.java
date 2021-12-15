@@ -119,18 +119,19 @@ public class SourceCodeGenerator implements ASTVisitor {
         return null;
     }
 
-    /*
-     * public Object visit(DeclarationVariable node){
-     * Symbole sym = TDS.getInstance().identifier(new
-     * Entree(node.getIdentifier().getNom()));
-     * 
-     * code += sym + " ";
-     * node.getIdentifier().accept(this);
-     * if (!isParameterDeclaration)
-     * code += ";";
-     * return null;
-     * }
-     */
+    public Object visit(DeclarationVariable node) {
+        /*
+        Symbole sym = TDS.getInstance().identifier(new Entree(node.getIdentifier().getNom()));
+
+        code += sym + " ";
+        node.getIdentifier().accept(this);
+        if (!isParameterDeclaration)
+            code += ";";
+        */
+        
+        return null;
+    }
+
     public Object visit(Diff node) {
         node.getGauche().accept(this);
         code += " <> ";
