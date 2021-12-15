@@ -27,7 +27,7 @@ public interface ASTVisitor {
 
     Object visit(Et node);
 
-    // Object visit(Faux node);
+    Object visit(Faux node);
     Object visit(Idf node);
 
     // Object visit(Indice node);
@@ -53,5 +53,5 @@ public interface ASTVisitor {
     Object visit(Superieur node);
     // Object visit(Tantque node);
     // Object visit(Tilda node);
-    // Object visit(Vrai node);
+    Object visit(Vrai node);
 }

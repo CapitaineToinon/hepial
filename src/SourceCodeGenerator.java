@@ -167,12 +167,11 @@ public class SourceCodeGenerator implements ASTVisitor {
         return null;
     }
 
-    /*
-     * public Object visit(Faux node){
-     * code += "faux";
-     * return null;
-     * }
-     */
+    public Object visit(Faux node) {
+        code += "faux";
+        return null;
+    }
+
     public Object visit(Idf node) {
         code += node.getNom();
         return null;
@@ -305,12 +304,12 @@ public class SourceCodeGenerator implements ASTVisitor {
      * node.getOperand().accept(this);
      * return null;
      * }
-     * 
-     * public Object visit(Vrai node){
-     * code += "vrai";
-     * return null;
-     * }
      */
+    public Object visit(Vrai node) {
+        code += "vrai";
+        return null;
+    }
+
     public String getCode() {
         return code;
     }

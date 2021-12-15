@@ -12,4 +12,6 @@ debutprg
   d = c >= b;
   d = c et b;
   d = c ou b;
+  d = vrai;
+  d = faux;
 finprg
