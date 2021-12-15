@@ -85,7 +85,7 @@ op_bin            ::= PLUS:o       {: RESULT = new Addition("", oleft, oright); 
                       | SUPEQUAL:o {: RESULT = new SupEgal("", oleft, oright); :}
                       | AND:o      {: RESULT = new Et("", oleft, oright); :}
                       | OR:o       {: RESULT = new Ou("", oleft, oright); :};
-op_una            ::= TILDA      {:   :}
+op_una            ::= TILDA      {:   :} // same as una minus
                       | NOT      {:   :}
                       | MINUS    {:   :};
 operand           ::= access:access       {: RESULT = access; :}
