@@ -142,8 +142,8 @@ expr              ::= expr:left op_bin:op expr:right
                         RESULT = op;
                       :}
                       | 
-                      OPENPARENT expr CLOSEPARENT
-                      {: :}
+                      OPENPARENT expr:e CLOSEPARENT
+                      {: RESULT = new Parentheses(e, getFl(), eleft, eright); :}
                       | 
                       operand:operand
                       {: RESULT = operand; :};

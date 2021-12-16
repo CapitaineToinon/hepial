@@ -222,14 +222,13 @@ public class SourceCodeGenerator implements ASTVisitor {
         return null;
     }
 
-    /*
-     * public Object visit(Parentheses node){
-     * code += "(";
-     * node.getExpression().accept(this);
-     * code += ")";
-     * return null;
-     * }
-     */
+    public Object visit(Parentheses node) {
+        code += "(";
+        node.getExpression().accept(this);
+        code += ")";
+        return null;
+    }
+
     public Object visit(Pour node) {
         code += "pour ";
         node.getIteratorName().accept(this);
