@@ -40,7 +40,7 @@ public interface ASTVisitor {
     Object visit(Inferieur node);
 
     Object visit(Lire node);
-    
+
     Object visit(Moins node);
 
     Object visit(Nombre node);
@@ -59,7 +59,8 @@ public interface ASTVisitor {
 
     Object visit(Superieur node);
 
-    // Object visit(Tantque node);
+    Object visit(Tantque node);
+
     Object visit(Tilda node);
 
     Object visit(Vrai node);

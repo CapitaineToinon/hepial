@@ -46,7 +46,7 @@ non terminal DeclarationVariable declar_var;
 non terminal DeclarationConstant declar_const;
 non terminal Expression expr, access, operand;
 non terminal for_instr;
-non terminal while_instr;
+non terminal Tantque while_instr;
 non terminal return_instr;
 non terminal cond_instr;
 non terminal Ecrire write_instr;
@@ -232,8 +232,8 @@ instr             ::= assign:instr
                       cond_instr                  
                       {:  :}
                       |
-                      while_instr                 
-                      {:  :}
+                      while_instr:instr               
+                      {: RESULT = instr; :}
                       |
                       for_instr                   
                       {:  :};
@@ -262,8 +262,8 @@ cond_instr        ::= IF expr THEN body ELSE body ENDIF
                       IF expr THEN body ENDIF
                       {: :};
 
-while_instr       ::= WHILE expr DO body ENDWHILE
-                      {: :};
+while_instr       ::= WHILE expr:expr DO body:body ENDWHILE
+                      {: RESULT = new Tantque(expr, body, getFl(), exprleft, exprright); :};
 
 for_instr         ::= FOR IDENT FROM expr TO expr DO body ENDFOR
                       {: :};

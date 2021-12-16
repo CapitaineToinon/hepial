@@ -25,4 +25,9 @@ debutprg
 
   ecrire "salut";
   lire n;
+
+  tantque count > 5 faire
+    ecrire count;
+    count = count + 1;
+  fintantque
 finprg
