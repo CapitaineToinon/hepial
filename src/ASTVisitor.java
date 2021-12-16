@@ -50,7 +50,8 @@ public interface ASTVisitor {
     Object visit(Ou node);
 
     // Object visit(Parentheses node);
-    // Object visit(Pour node);
+    Object visit(Pour node);
+
     Object visit(Produit node);
 
     Object visit(Soustraction node);

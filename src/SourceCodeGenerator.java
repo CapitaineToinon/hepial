@@ -230,24 +230,24 @@ public class SourceCodeGenerator implements ASTVisitor {
      * code += ")";
      * return null;
      * }
-     * 
-     * public Object visit(Pour node){
-     * code += "pour ";
-     * node.getIteratorName().accept(this);
-     * code += " allantde ";
-     * node.getFrom().accept(this);
-     * code += " a ";
-     * node.getTo().accept(this);
-     * code+= " faire";
-     * level += 1;
-     * node.getInstruction().accept(this);
-     * level -= 1;
-     * code += "\n";
-     * addTabulation();
-     * code += "finpour";
-     * return null;
-     * }
      */
+    public Object visit(Pour node) {
+        code += "pour ";
+        node.getIteratorName().accept(this);
+        code += " allantde ";
+        node.getFrom().accept(this);
+        code += " a ";
+        node.getTo().accept(this);
+        code += " faire";
+        level += 1;
+        node.getInstructions().accept(this);
+        level -= 1;
+        code += "\n";
+        addTabulation();
+        code += "finpour";
+        return null;
+    }
+
     public Object visit(Produit node) {
         node.getGauche().accept(this);
         code += " * ";

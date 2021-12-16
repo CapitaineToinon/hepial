@@ -45,7 +45,7 @@ non terminal Instruction declar;
 non terminal DeclarationVariable declar_var;
 non terminal DeclarationConstant declar_const;
 non terminal Expression expr, access, operand;
-non terminal for_instr;
+non terminal Pour for_instr;
 non terminal Tantque while_instr;
 non terminal return_instr;
 non terminal cond_instr;
@@ -235,8 +235,8 @@ instr             ::= assign:instr
                       while_instr:instr               
                       {: RESULT = instr; :}
                       |
-                      for_instr                   
-                      {:  :};
+                      for_instr:instr                 
+                      {: RESULT = instr; :};
 
 assign            ::= access:dest EQUAL:e expr:src SEMICOLON
                       {: RESULT = new Affectation(dest, src, getFl(), eleft, eright); :};
@@ -265,5 +265,8 @@ cond_instr        ::= IF expr THEN body ELSE body ENDIF
 while_instr       ::= WHILE expr:expr DO body:body ENDWHILE
                       {: RESULT = new Tantque(expr, body, getFl(), exprleft, exprright); :};
 
-for_instr         ::= FOR IDENT FROM expr TO expr DO body ENDFOR
-                      {: :};
+for_instr         ::= FOR:f IDENT:id FROM expr:from TO expr:to DO body:body ENDFOR
+                      {:
+                        Idf idf = new Idf(id, getFl(), idleft, idright);
+                        RESULT = new Pour(idf, from, to, body, getFl(), fleft, fright);
+                      :};

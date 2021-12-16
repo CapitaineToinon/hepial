@@ -30,4 +30,8 @@ debutprg
     ecrire count;
     count = count + 1;
   fintantque
+
+  pour n allantde 0 a 20 faire
+		ecrire n;
+	finpour
 finprg
