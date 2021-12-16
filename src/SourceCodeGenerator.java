@@ -5,6 +5,7 @@
  * @author Stephane Malandain 
  */
 
+import java.lang.StackWalker.Option;
 import java.util.*;
 
 public class SourceCodeGenerator implements ASTVisitor {
@@ -66,26 +67,24 @@ public class SourceCodeGenerator implements ASTVisitor {
         return null;
     }
 
-    /*
-     * public Object visit(Condition node){
-     * code += "si ";
-     * node.getCondition().accept(this);
-     * code += " alors";
-     * level += 1;
-     * node.getThenInstruction().accept(this);
-     * if (node.hasElse()){
-     * code += "\n";
-     * addTabulation(level - 1);
-     * code += "sinon";
-     * node.getElseInstruction().accept(this);
-     * }
-     * level -= 1;
-     * code += "\n";
-     * addTabulation();
-     * code += "finsi";
-     * return null;
-     * }
-     */
+    public Object visit(Condition node) {
+        code += "si ";
+        node.getCondition().accept(this);
+        code += " alors";
+        level += 1;
+        node.getThenInstructions().accept(this);
+        if (node.hasElse()) {
+            code += "\n";
+            addTabulation(level - 1);
+            code += "sinon";
+            node.getElseInstructions().get().accept(this);
+        }
+        level -= 1;
+        code += "\n";
+        addTabulation();
+        code += "finsi";
+        return null;
+    }
 
     public Object visit(DeclarationConstant node) {
         // Symbole sym = TDS.getInstance().identifier(new

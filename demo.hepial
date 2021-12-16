@@ -34,4 +34,14 @@ debutprg
   pour n allantde 0 a 20 faire
 		ecrire n;
 	finpour
+
+  si n > 0 alors
+    ecrire n;
+  finsi
+
+  si n > 0 alors
+    ecrire n;
+  sinon
+    ecrire "n is null !";
+  finsi
 finprg

@@ -48,7 +48,7 @@ non terminal Expression expr, access, operand;
 non terminal Pour for_instr;
 non terminal Tantque while_instr;
 non terminal return_instr;
-non terminal cond_instr;
+non terminal Condition cond_instr;
 non terminal Ecrire write_instr;
 non terminal Lire read_instr;
 non terminal Instruction instr;
@@ -229,8 +229,8 @@ instr             ::= assign:instr
                       read_instr:instr               
                       {: RESULT = instr; :}
                       |
-                      cond_instr                  
-                      {:  :}
+                      cond_instr:instr               
+                      {: RESULT = instr; :}
                       |
                       while_instr:instr               
                       {: RESULT = instr; :}
@@ -256,11 +256,11 @@ read_instr        ::= READ IDENT:id SEMICOLON
                         RESULT = new Lire(idf, getFl(), idleft, idright);
                       :};
 
-cond_instr        ::= IF expr THEN body ELSE body ENDIF
-                      {: :}
+cond_instr        ::= IF:f expr:expr THEN body:body_then ELSE body:body_else ENDIF
+                      {: RESULT = new Condition(expr, body_then, Optional.of(body_else), getFl(), fleft, fright); :}
                       | 
-                      IF expr THEN body ENDIF
-                      {: :};
+                      IF:f expr:expr THEN body:body_then ENDIF
+                      {: RESULT = new Condition(expr, body_then, Optional.empty(), getFl(), fleft, fright); :};
 
 while_instr       ::= WHILE expr:expr DO body:body ENDWHILE
                       {: RESULT = new Tantque(expr, body, getFl(), exprleft, exprright); :};

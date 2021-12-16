@@ -12,7 +12,8 @@ public interface ASTVisitor {
 
     Object visit(Chaine node);
 
-    // Object visit(Condition node);
+    Object visit(Condition node);
+
     Object visit(DeclarationConstant node);
 
     // Object visit(DeclarationFonction node);
