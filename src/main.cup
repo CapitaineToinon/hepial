@@ -50,7 +50,7 @@ non terminal while_instr;
 non terminal return_instr;
 non terminal cond_instr;
 non terminal Ecrire write_instr;
-non terminal read_instr;
+non terminal Lire read_instr;
 non terminal Instruction instr;
 non terminal Affectation assign;
 non terminal index;
@@ -226,8 +226,8 @@ instr             ::= assign:instr
                       write_instr:instr           
                       {: RESULT = instr; :}
                       |
-                      read_instr                  
-                      {:  :}
+                      read_instr:instr               
+                      {: RESULT = instr; :}
                       |
                       cond_instr                  
                       {:  :}
@@ -250,8 +250,12 @@ write_instr       ::= WRITE expr:e SEMICOLON
                         RESULT = new Ecrire(c, getFl(), sleft, sright);
                       :};
 
-read_instr        ::= READ IDENT SEMICOLON
-                      {: :};
+read_instr        ::= READ IDENT:id SEMICOLON
+                      {:
+                        Idf idf = new Idf(id, getFl(), idleft, idright);
+                        RESULT = new Lire(idf, getFl(), idleft, idright);
+                      :};
+
 cond_instr        ::= IF expr THEN body ELSE body ENDIF
                       {: :}
                       | 

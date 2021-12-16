@@ -192,14 +192,12 @@ public class SourceCodeGenerator implements ASTVisitor {
         return null;
     }
 
-    /*
-     * public Object visit(Lire node){
-     * code += "lire ";
-     * node.getDestination().accept(this);
-     * code += ";";
-     * return null;
-     * }
-     */
+    public Object visit(Lire node) {
+        code += "lire ";
+        node.getDestination().accept(this);
+        code += ";";
+        return null;
+    }
 
     public Object visit(Moins node) {
         code += "-";

@@ -39,7 +39,8 @@ public interface ASTVisitor {
 
     Object visit(Inferieur node);
 
-    // Object visit(Lire node);
+    Object visit(Lire node);
+    
     Object visit(Moins node);
 
     Object visit(Nombre node);

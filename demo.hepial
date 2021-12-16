@@ -24,4 +24,5 @@ debutprg
   b = ~ b;
 
   ecrire "salut";
+  lire n;
 finprg
