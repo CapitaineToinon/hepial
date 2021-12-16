@@ -28,7 +28,7 @@ non terminal for_instr;
 non terminal while_instr;
 non terminal return_instr;
 non terminal cond_instr;
-non terminal write_instr;
+non terminal Ecrire write_instr;
 non terminal read_instr;
 non terminal Instruction instr;
 non terminal Affectation assign;
@@ -119,15 +119,27 @@ instr_lst         ::= {: RESULT = new ArrayList(); :}
                         instructions.add(instruction);
                         RESULT = instructions;
                       :};
-instr             ::= assign:inst         {: RESULT = inst; :}
-                      | write_instr {:   :}
-                      | read_instr  {:   :}
-                      | cond_instr  {:   :}
-                      | while_instr {:   :}
-                      | for_instr   {:   :};
-assign            ::= access:dest EQUAL:e expr:src SEMICOLON {: RESULT = new Affectation(dest, src, "", eleft, eright); :};
-write_instr       ::= WRITE expr SEMICOLON {:   :}
-                      | WRITE STRINGCONST SEMICOLON  {:   :};
+instr             ::= assign:instr                  {: RESULT = instr; :}
+                      | write_instr:instr           {: RESULT = instr; :}
+                      | read_instr                  {:  :}
+                      | cond_instr                  {:  :}
+                      | while_instr                 {:  :}
+                      | for_instr                   {:  :};
+assign            ::= access:dest EQUAL:e expr:src SEMICOLON
+                      {:
+                        RESULT = new Affectation(dest, src, "", eleft, eright);
+                      :};
+
+write_instr       ::= WRITE expr:e SEMICOLON
+                      {:
+                        RESULT = new Ecrire(e, "", eleft, eright);
+                      :}
+                      | WRITE STRINGCONST:s SEMICOLON
+                      {:
+                        Chaine c = new Chaine(s, "", sleft, sright);
+                        RESULT = new Ecrire(c, "", sleft, sright);
+                      :};
+
 read_instr        ::= READ IDENT SEMICOLON   {:   :};
 cond_instr        ::= IF expr THEN body ELSE body ENDIF {:   :}
                       | IF expr THEN body ENDIF {:   :};

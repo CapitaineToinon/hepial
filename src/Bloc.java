@@ -1,5 +1,4 @@
 
-
 /*
  * Represent a group of instructions node inside the AST.
 */
@@ -39,6 +38,9 @@ public class Bloc extends Instruction {
      * Set the list of instructions
      */
     public void setInstructions(ArrayList<Instruction> instructions) {
+        if (instructions.contains(null)) {
+            throw new NullPointerException("instr cannot be null");
+        }
         this.instructions = instructions;
     }
 
@@ -46,6 +48,9 @@ public class Bloc extends Instruction {
      * Add an instruction to this bloc
      */
     public void addInstruction(Instruction instr) {
+        if (instr == null) {
+            throw new NullPointerException("instr cannot be null");
+        }
         this.instructions.add(instr);
     }
 

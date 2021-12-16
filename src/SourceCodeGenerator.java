@@ -88,7 +88,8 @@ public class SourceCodeGenerator implements ASTVisitor {
      */
 
     public Object visit(DeclarationConstant node) {
-        // Symbole sym = TDS.getInstance().identifier(new Entree(node.getIdentifier().getNom()));
+        // Symbole sym = TDS.getInstance().identifier(new
+        // Entree(node.getIdentifier().getNom()));
         // code += sym + " ";
         // node.getIdentifier().accept(this);
         // code += " = ";
@@ -146,14 +147,13 @@ public class SourceCodeGenerator implements ASTVisitor {
         return null;
     }
 
-    /*
-     * public Object visit(Ecrire node){
-     * code += "ecrire ";
-     * node.getSource().accept(this);
-     * code += ";";
-     * return null;
-     * }
-     */
+    public Object visit(Ecrire node) {
+        code += "ecrire ";
+        node.getSource().accept(this);
+        code += ";";
+        return null;
+    }
+
     public Object visit(Egal node) {
         node.getGauche().accept(this);
         code += " == ";

@@ -22,4 +22,6 @@ debutprg
   b = non b;
   b = - b;
   b = ~ b;
+
+  ecrire "salut";
 finprg

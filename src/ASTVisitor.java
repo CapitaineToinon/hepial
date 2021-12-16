@@ -24,7 +24,8 @@ public interface ASTVisitor {
 
     Object visit(Division node);
 
-    // Object visit(Ecrire node);
+    Object visit(Ecrire node);
+
     Object visit(Egal node);
 
     Object visit(Et node);
