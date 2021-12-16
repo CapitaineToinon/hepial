@@ -36,7 +36,7 @@ public class App {
 		}
 
 		try {
-			myP = new parser(myTP);
+			myP = new parser(myTP, args[0]);
 		} catch (Exception e) {
 			System.out.println("[test.java] new parser failed");
 			throw e;
