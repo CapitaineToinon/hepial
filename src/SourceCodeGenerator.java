@@ -90,10 +90,12 @@ public class SourceCodeGenerator implements ASTVisitor {
         // Symbole sym = TDS.getInstance().identifier(new
         // Entree(node.getIdentifier().getNom()));
         // code += sym + " ";
-        // node.getIdentifier().accept(this);
-        // code += " = ";
-        // node.getConstantExpression().accept(this);
-        // code += ";";
+        code += "constante ";
+        code += node.getType().getTypeName() + " ";
+        node.getIdentifier().accept(this);
+        code += " = ";
+        node.getExpression().accept(this);
+        code += ";";
         return null;
     }
 
@@ -106,7 +108,7 @@ public class SourceCodeGenerator implements ASTVisitor {
          */
         code += "programme ";
         // node.getIdentifier().accept(this);
-        // node.getDeclaration().accept(this);
+        node.getDeclaration().accept(this);
         code += "\ndebutprg";
         node.getInstructions().accept(this);
         code += "\nfinprg";
@@ -122,13 +124,12 @@ public class SourceCodeGenerator implements ASTVisitor {
         /*
          * Symbole sym = TDS.getInstance().identifier(new
          * Entree(node.getIdentifier().getNom()));
-         * 
-         * code += sym + " ";
-         * node.getIdentifier().accept(this);
-         * if (!isParameterDeclaration)
-         * code += ";";
          */
-
+        code += node.getType().getTypeName() + " ";
+        for (Idf idf : node.getIdentifiants()) {
+            idf.accept(this);
+        }
+        code += ";";
         return null;
     }
 

@@ -1,5 +1,4 @@
 
-
 /*
  * Represent a function declaration instruction node inside the AST.
 */

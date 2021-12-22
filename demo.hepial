@@ -1,7 +1,7 @@
 programme demo
 
-entier puteputeputepute;
-entier b;
+entier c,b;
+entier pute;
 booleen connard;
 constante entier prix = 2000;
 constante booleen isActive = vrai;

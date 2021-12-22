@@ -103,7 +103,7 @@ declar_var        ::= type:t l_ident:idfs SEMICOLON
                         RESULT = new DeclarationVariable(t, idfs, getFl(), 0, 0);
                       :};
 
-l_ident           ::= IDENT:id 
+l_ident           ::= IDENT:id
                       {:
                         Idf idf = new Idf(id, getFl(), idleft, idright);
                         RESULT = new ArrayList<Idf>(List.of(idf));
@@ -113,6 +113,7 @@ l_ident           ::= IDENT:id
                       {: 
                         Idf idf = new Idf(id, getFl(), idleft, idright);
                         idfs.add(idf);
+                        RESULT = idfs;
                       :};
 
 type              ::= typebase:t
