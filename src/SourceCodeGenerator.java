@@ -110,7 +110,9 @@ public class SourceCodeGenerator implements ASTVisitor {
         // node.getIdentifier().accept(this);
         node.getDeclaration().accept(this);
         code += "\ndebutprg";
+        level += 1;
         node.getInstructions().accept(this);
+        level -= 1;
         code += "\nfinprg";
 
         /*
@@ -126,8 +128,12 @@ public class SourceCodeGenerator implements ASTVisitor {
          * Entree(node.getIdentifier().getNom()));
          */
         code += node.getType().getTypeName() + " ";
-        for (Idf idf : node.getIdentifiants()) {
-            idf.accept(this);
+
+        ArrayList<Idf> idfs = node.getIdentifiants();
+        for (int i = 0; i < idfs.size(); i++) {
+            idfs.get(i).accept(this);
+            if (i < idfs.size() - 1)
+                code += ",";
         }
         code += ";";
         return null;
