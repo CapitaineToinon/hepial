@@ -124,8 +124,11 @@ typebase          ::= TINTEGER
                       TBOOLEAN
                       {: RESULT = new Booleen(); :};
 
-declar_const      ::= CONSTANT type:t IDENT EQUAL expr:e SEMICOLON
-                      {: RESULT = new DeclarationConstant(t, e, getFl(), 0, 0); :};
+declar_const      ::= CONSTANT type:t IDENT:id EQUAL expr:e SEMICOLON
+                      {:
+                        Idf idf = new Idf(id, getFl(), idleft, idright);
+                        RESULT = new DeclarationConstant(t, idf, e, getFl(), 0, 0);
+                      :};
 
 expr              ::= expr:left op_bin:op expr:right
                       {:
