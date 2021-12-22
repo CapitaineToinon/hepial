@@ -26,7 +26,7 @@ public class Tantque extends Instruction {
         this.instructions = instructions;
     }
 
-    Object accept(ASTVisitor visitor) {
+    Object accept(ASTVisitor visitor) throws Exception {
         return visitor.visit(this);
     }
 

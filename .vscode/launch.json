@@ -9,7 +9,7 @@
       "name": "Launch App",
       "request": "launch",
       "mainClass": "App",
-      "args": "demo.hepial"
+      "args": "${command:SpecifyProgramArgs}"
     }
   ]
 }

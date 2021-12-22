@@ -1,5 +1,4 @@
 
-
 /*
  * Represent a false node inside the AST.
 */
@@ -28,7 +27,7 @@ public class Faux extends Expression {
     /**
      * Accepts a AST visitor
      */
-    Object accept(ASTVisitor visitor) {
+    Object accept(ASTVisitor visitor) throws Exception {
         return visitor.visit(this);
     }
 }

@@ -38,14 +38,14 @@ public class SourceCodeGenerator implements ASTVisitor {
             code += "    ";
     }
 
-    public Object visit(Addition node) {
+    public Object visit(Addition node) throws Exception {
         node.getGauche().accept(this);
         code += " + ";
         node.getDroite().accept(this);
         return null;
     }
 
-    public Object visit(Affectation node) {
+    public Object visit(Affectation node) throws Exception {
         node.getDestination().accept(this);
         code += " = ";
         node.getSource().accept(this);
@@ -53,7 +53,7 @@ public class SourceCodeGenerator implements ASTVisitor {
         return null;
     }
 
-    public Object visit(Bloc node) {
+    public Object visit(Bloc node) throws Exception {
         for (Instruction inst : node.getInstructions()) {
             code += "\n";
             addTabulation();
@@ -62,12 +62,12 @@ public class SourceCodeGenerator implements ASTVisitor {
         return null;
     }
 
-    public Object visit(Chaine node) {
+    public Object visit(Chaine node) throws Exception {
         code += node.getValeur();
         return null;
     }
 
-    public Object visit(Condition node) {
+    public Object visit(Condition node) throws Exception {
         code += "si ";
         node.getCondition().accept(this);
         code += " alors";
@@ -86,7 +86,7 @@ public class SourceCodeGenerator implements ASTVisitor {
         return null;
     }
 
-    public Object visit(DeclarationConstant node) {
+    public Object visit(DeclarationConstant node) throws Exception {
         // Symbole sym = TDS.getInstance().identifier(new
         // Entree(node.getIdentifier().getNom()));
         // code += sym + " ";
@@ -99,7 +99,7 @@ public class SourceCodeGenerator implements ASTVisitor {
         return null;
     }
 
-    public Object visit(DeclarationProgramme node) {
+    public Object visit(DeclarationProgramme node) throws Exception {
         /*
          * TDS.getInstance().resetBlocNumber();
          * 
@@ -122,7 +122,7 @@ public class SourceCodeGenerator implements ASTVisitor {
         return null;
     }
 
-    public Object visit(DeclarationVariable node) {
+    public Object visit(DeclarationVariable node) throws Exception {
         /*
          * Symbole sym = TDS.getInstance().identifier(new
          * Entree(node.getIdentifier().getNom()));
@@ -139,104 +139,104 @@ public class SourceCodeGenerator implements ASTVisitor {
         return null;
     }
 
-    public Object visit(Diff node) {
+    public Object visit(Diff node) throws Exception {
         node.getGauche().accept(this);
         code += " <> ";
         node.getDroite().accept(this);
         return null;
     }
 
-    public Object visit(Division node) {
+    public Object visit(Division node) throws Exception {
         node.getGauche().accept(this);
         code += " / ";
         node.getDroite().accept(this);
         return null;
     }
 
-    public Object visit(Ecrire node) {
+    public Object visit(Ecrire node) throws Exception {
         code += "ecrire ";
         node.getSource().accept(this);
         code += ";";
         return null;
     }
 
-    public Object visit(Egal node) {
+    public Object visit(Egal node) throws Exception {
         node.getGauche().accept(this);
         code += " == ";
         node.getDroite().accept(this);
         return null;
     }
 
-    public Object visit(Et node) {
+    public Object visit(Et node) throws Exception {
         node.getGauche().accept(this);
         code += " et ";
         node.getDroite().accept(this);
         return null;
     }
 
-    public Object visit(Faux node) {
+    public Object visit(Faux node) throws Exception {
         code += "faux";
         return null;
     }
 
-    public Object visit(Idf node) {
+    public Object visit(Idf node) throws Exception {
         code += node.getNom();
         return null;
     }
 
-    public Object visit(InfEgal node) {
+    public Object visit(InfEgal node) throws Exception {
         node.getGauche().accept(this);
         code += " <= ";
         node.getDroite().accept(this);
         return null;
     }
 
-    public Object visit(Inferieur node) {
+    public Object visit(Inferieur node) throws Exception {
         node.getGauche().accept(this);
         code += " < ";
         node.getDroite().accept(this);
         return null;
     }
 
-    public Object visit(Lire node) {
+    public Object visit(Lire node) throws Exception {
         code += "lire ";
         node.getDestination().accept(this);
         code += ";";
         return null;
     }
 
-    public Object visit(Moins node) {
+    public Object visit(Moins node) throws Exception {
         code += "-";
         node.getOperande().accept(this);
         return null;
     }
 
-    public Object visit(Nombre node) {
+    public Object visit(Nombre node) throws Exception {
         code += Integer.toString(node.getValeur());
         return null;
     }
 
-    public Object visit(Non node) {
+    public Object visit(Non node) throws Exception {
         code += "non ";
         node.getOperande().accept(this);
         return null;
     }
 
-    public Object visit(Ou node) {
+    public Object visit(Ou node) throws Exception {
         node.getGauche().accept(this);
         code += " ou ";
         node.getDroite().accept(this);
         return null;
     }
 
-    public Object visit(Parentheses node) {
+    public Object visit(Parentheses node) throws Exception {
         code += "(";
         node.getExpression().accept(this);
         code += ")";
         return null;
     }
 
-    public Object visit(Pour node) {
+    public Object visit(Pour node) throws Exception {
         code += "pour ";
         node.getIteratorName().accept(this);
         code += " allantde ";
@@ -253,7 +253,7 @@ public class SourceCodeGenerator implements ASTVisitor {
         return null;
     }
 
-    public Object visit(Produit node) {
+    public Object visit(Produit node) throws Exception {
         node.getGauche().accept(this);
         code += " * ";
         node.getDroite().accept(this);
@@ -261,35 +261,35 @@ public class SourceCodeGenerator implements ASTVisitor {
     }
 
     /*
-     * public Object visit(Retour node){
+     * public Object visit(Retour node) throws Exception{
      * code += "retourne ";
      * node.getSource().accept(this);
      * code += ";";
      * return null;
      * }
      */
-    public Object visit(Soustraction node) {
+    public Object visit(Soustraction node) throws Exception {
         node.getGauche().accept(this);
         code += " - ";
         node.getDroite().accept(this);
         return null;
     }
 
-    public Object visit(SupEgal node) {
+    public Object visit(SupEgal node) throws Exception {
         node.getGauche().accept(this);
         code += " >= ";
         node.getDroite().accept(this);
         return null;
     }
 
-    public Object visit(Superieur node) {
+    public Object visit(Superieur node) throws Exception {
         node.getGauche().accept(this);
         code += " > ";
         node.getDroite().accept(this);
         return null;
     }
 
-    public Object visit(Tantque node) {
+    public Object visit(Tantque node) throws Exception {
         code += "tantque ";
         node.getCondition().accept(this);
         code += " faire";
@@ -302,19 +302,19 @@ public class SourceCodeGenerator implements ASTVisitor {
         return null;
     }
 
-    public Object visit(Tilda node) {
+    public Object visit(Tilda node) throws Exception {
         code += "~";
         node.getOperande().accept(this);
         return null;
     }
 
     /*
-     * public Object visit(Vrai node){
+     * public Object visit(Vrai node) throws Exception{
      * code += "vrai";
      * return null;
      * }
      */
-    public Object visit(Vrai node) {
+    public Object visit(Vrai node) throws Exception {
         code += "vrai";
         return null;
     }

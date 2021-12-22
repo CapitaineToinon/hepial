@@ -20,6 +20,7 @@ public class App {
 		FileReader myFile;
 		Lexer myTP;
 		parser myP;
+		DeclarationProgramme program;
 
 		try {
 			myFile = new FileReader(args[0]);
@@ -43,32 +44,38 @@ public class App {
 		}
 
 		try {
-
 			// on lance le parsing, et on récupère l'AST
-			DeclarationProgramme program = (DeclarationProgramme) myP.parse().value;
+			program = (DeclarationProgramme) myP.parse().value;
 			if (program == null)
-				// Aie, pas d'AST received ....
-				return;
-
-			System.out.println("ok, c'est retourné au prg java !!!!");
-			// Lecture de l'AST selon design pattern Visitor
-			// Et affichage du code d'origine
-			SourceCodeGenerator sourceGenerator = new SourceCodeGenerator();
-			System.out.println("___________ code source selon la lecture de l'arbre abstrait : _______________");
-			program.accept(sourceGenerator);
-			System.out.println(sourceGenerator.getCode());
-			System.out.println("_________________________");
-
-			// analyse sémantique
-			// todo
-
-			// production du code
-			// todo
+				throw new Exception("no AST recieved");
 
 		} catch (Exception e) {
 			System.out.println("[test.java] myP.parse() failed");
 			throw e;
 		}
+
+		try {
+			SourceCodeGenerator sourceGenerator = new SourceCodeGenerator();
+			System.out.println("___________ code source selon la lecture de l'arbre abstrait : _______________");
+			program.accept(sourceGenerator);
+			System.out.println(sourceGenerator.getCode());
+			System.out.println("_________________________");
+		} catch (Exception e) {
+			System.out.println("[test.java] SourceCodeGenerator failed");
+			throw e;
+		}
+
+		try {
+			// analyse sémantique
+			AnalyseSemantique analyseur = new AnalyseSemantique();
+			program.accept(analyseur);
+		} catch (Exception e) {
+			System.out.println("[test.java] AnalyseSemantique failed");
+			throw e;
+		}
+
+		// production du code
+		// todo
 
 		System.out.println("#############################################################");
 	}

@@ -30,7 +30,7 @@ public class Condition extends Instruction {
         return this.elseInstructions.isPresent();
     }
 
-    Object accept(ASTVisitor visitor) {
+    Object accept(ASTVisitor visitor) throws Exception {
         return visitor.visit(this);
     }
 

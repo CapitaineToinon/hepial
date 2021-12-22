@@ -70,7 +70,7 @@ public class DeclarationProgramme extends Instruction {
     /**
      * Accepts a AST visitor
      */
-    public Object accept(ASTVisitor visitor) {
+    public Object accept(ASTVisitor visitor) throws Exception {
         return visitor.visit(this);
     }
 }

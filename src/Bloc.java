@@ -64,7 +64,7 @@ public class Bloc extends Instruction {
     /**
      * Accepts a AST visitor
      */
-    Object accept(ASTVisitor visitor) {
+    Object accept(ASTVisitor visitor) throws Exception {
         return visitor.visit(this);
     }
 }

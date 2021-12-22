@@ -8,7 +8,7 @@ public class Non extends Unaire {
         return "non";
     }
 
-    Object accept(ASTVisitor visitor) {
+    Object accept(ASTVisitor visitor) throws Exception {
         return visitor.visit(this);
     }
 

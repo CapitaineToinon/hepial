@@ -1,5 +1,4 @@
 
-
 /*
  * Represent an addition expression node inside the AST.
 */
@@ -36,7 +35,7 @@ public class Addition extends Arithmetique {
     /**
      * Accepts a AST visitor
      */
-    Object accept(ASTVisitor visitor) {
+    Object accept(ASTVisitor visitor) throws Exception {
         return visitor.visit(this);
     }
 }

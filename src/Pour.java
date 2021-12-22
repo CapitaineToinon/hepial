@@ -48,7 +48,7 @@ public class Pour extends Instruction {
         this.iterator = iterator;
     }
 
-    Object accept(ASTVisitor visitor) {
+    Object accept(ASTVisitor visitor) throws Exception {
         return visitor.visit(this);
     }
 

@@ -11,7 +11,7 @@ public class Lire extends Instruction {
         return this.destination;
     }
 
-    Object accept(ASTVisitor visitor) {
+    Object accept(ASTVisitor visitor) throws Exception {
         return visitor.visit(this);
     }
 

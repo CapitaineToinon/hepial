@@ -1,5 +1,4 @@
 
-
 /*
  * Base class that represent a node inside the AST.
  */
@@ -51,5 +50,5 @@ public abstract class ASTNode {
     /**
      * Accepts a AST visitor
      */
-    abstract Object accept(ASTVisitor visitor);
+    abstract Object accept(ASTVisitor visitor) throws Exception;
 }

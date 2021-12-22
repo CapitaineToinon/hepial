@@ -1,0 +1,9 @@
+programme demo
+
+entier lmao;
+constante entier lmao = 5;
+constante entier lmao = 5;
+
+debutprg
+  lmao = 5;
+finprg

@@ -1,8 +1,8 @@
 public class DeclarationConstant extends Instruction {
 
     private Type type;
-    private Expression expression;
     private Idf identifier;
+    private Expression expression;
 
     public DeclarationConstant(Type type, Idf identifier, Expression expression, String fl, int line, int col) {
         super(fl, line, col);
@@ -35,7 +35,7 @@ public class DeclarationConstant extends Instruction {
         this.type = type;
     }
 
-    Object accept(ASTVisitor visitor) {
+    Object accept(ASTVisitor visitor) throws Exception {
         return visitor.visit(this);
     }
 

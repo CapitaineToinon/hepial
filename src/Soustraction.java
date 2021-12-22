@@ -1,5 +1,4 @@
 
-
 /*
  * Represent an subtraction expression node inside the AST.
 */
@@ -36,7 +35,7 @@ public class Soustraction extends Arithmetique {
     /**
      * Accepts a AST visitor
      */
-    Object accept(ASTVisitor visitor) {
+    Object accept(ASTVisitor visitor) throws Exception {
         return visitor.visit(this);
     }
 }

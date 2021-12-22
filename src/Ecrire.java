@@ -10,7 +10,7 @@ public class Ecrire extends Instruction {
         return this.source;
     }
 
-    Object accept(ASTVisitor visitor) {
+    Object accept(ASTVisitor visitor) throws Exception {
         return visitor.visit(this);
     }
 

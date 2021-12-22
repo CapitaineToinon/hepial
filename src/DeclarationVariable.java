@@ -27,7 +27,7 @@ public class DeclarationVariable extends Instruction {
         this.type = type;
     }
 
-    Object accept(ASTVisitor visitor) {
+    Object accept(ASTVisitor visitor) throws Exception {
         return visitor.visit(this);
     }
 
