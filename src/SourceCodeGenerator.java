@@ -91,7 +91,7 @@ public class SourceCodeGenerator implements ASTVisitor {
         // Entree(node.getIdentifier().getNom()));
         // code += sym + " ";
         code += "constante ";
-        code += node.getType().getTypeName() + " ";
+        code += node.getType().label + " ";
         node.getIdentifier().accept(this);
         code += " = ";
         node.getExpression().accept(this);
@@ -127,7 +127,7 @@ public class SourceCodeGenerator implements ASTVisitor {
          * Symbole sym = TDS.getInstance().identifier(new
          * Entree(node.getIdentifier().getNom()));
          */
-        code += node.getType().getTypeName() + " ";
+        code += node.getType().label + " ";
 
         ArrayList<Idf> idfs = node.getIdentifiants();
         for (int i = 0; i < idfs.size(); i++) {

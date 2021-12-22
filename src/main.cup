@@ -58,8 +58,7 @@ non terminal Unaire op_una;
 non terminal Binaire op_bin;
 
 non terminal ArrayList<Idf> l_ident;
-non terminal Type type;
-non terminal TypeBase typebase;
+non terminal Type type, typebase;
 
 // Precedences
 precedence left PLUS, MINUS, TIMES, DIVIDE, EQUALS, DIFF;
@@ -120,10 +119,10 @@ type              ::= typebase:t
                       {: RESULT = t; :};
 
 typebase          ::= TINTEGER
-                      {: RESULT = new Entier(); :}
+                      {: RESULT = Type.Entier; :}
                       |
                       TBOOLEAN
-                      {: RESULT = new Booleen(); :};
+                      {: RESULT = Type.Booleen; :};
 
 declar_const      ::= CONSTANT type:t IDENT:id EQUAL expr:e SEMICOLON
                       {:

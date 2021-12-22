@@ -1,22 +1,18 @@
+import java.util.List;
 
 /*
  * Base class that represent an type
 */
 
-public abstract class Type {
-    private String typeName;
+public enum Type {
+    Entier("entier", List.of(Nombre.class)),
+    Booleen("booleen", List.of(Vrai.class, Faux.class));
 
-    /**
-     * Constructor
-     */
-    public Type(String typeName) {
-        this.typeName = typeName;
-    }
+    public final String label;
+    public final List<Class<?>> accepted;
 
-    /**
-     * Get the node value
-     */
-    public String getTypeName() {
-        return this.typeName;
+    private Type(String label, List<Class<?>> accepted) {
+        this.label = label;
+        this.accepted = accepted;
     }
 }
