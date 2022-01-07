@@ -31,10 +31,10 @@ replay_pid*
 !.vscode/launch.json
 
 # ignore generated files
-src/parser.java
-src/sym.java
-src/Lexer.java
-*.java~
+src/main/parser.java
+src/main/sym.java
+src/main/Lexer.java
+*/**/*.java~
 bin/*
 
 # macos sucks

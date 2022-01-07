@@ -1,6 +1,7 @@
 programme demo
 
 entier c,b;
+booleen d;
 entier pute;
 booleen connard;
 constante entier prix = 2000;

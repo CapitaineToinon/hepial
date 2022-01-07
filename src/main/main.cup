@@ -1,0 +1,288 @@
+package main;
+
+import main.*;
+import main.ast.*;
+import main.ast.expression.*;
+import main.ast.expression.binaire.*;
+import main.ast.expression.binaire.arithmetique.*;
+import main.ast.expression.binaire.relation.*;
+import main.ast.expression.unaire.*;
+import main.ast.instruction.*;
+import main.exceptions.*;
+
+import java.io.*;
+import java.util.*;
+import java.util.Arrays;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.Vector;
+
+import java_cup.runtime.*;
+
+action code {:
+  /**
+   * @return the current file name from the parser
+   */
+  private String getFl() {
+    return this.parser.getFl();
+  }
+:}
+
+parser code {: 
+  private String fl;
+
+  public parser(java_cup.runtime.Scanner s, String fl) {
+    this(s);
+    this.fl = fl;
+  }
+
+  /**
+   * @return the current file name
+   */
+  public String getFl() {
+    return this.fl;
+  }
+:};
+
+terminal PRG, STARTPRG, ENDPRG, CONSTANT, SEMICOLON, OPENPARENT;
+terminal CLOSEPARENT, COMMA, EQUAL;
+terminal READ, WRITE, IF, THEN, ELSE, ENDIF, WHILE, DO, ENDWHILE;
+terminal FOR, FROM, TO, ENDFOR, TRUE, FALSE,  PLUS, MINUS, TIMES, DIVIDE;
+terminal EQUALS, DIFF, INF, INFEQUAL, SUP, SUPEQUAL, AND, OR, TILDA, NOT;
+
+terminal String IDENT, STRINGCONST, TINTEGER, TBOOLEAN;
+terminal int INTEGERCONST;
+
+// Non terminal rules that return a RESULT value
+non terminal DeclarationProgramme program, header;
+non terminal Bloc declar_lst, body;
+non terminal ArrayList<Instruction> instr_lst, declars;
+non terminal Instruction declar;
+non terminal DeclarationVariable declar_var;
+non terminal DeclarationConstant declar_const;
+non terminal Expression expr, operand;
+non terminal Idf access;
+non terminal Pour for_instr;
+non terminal Tantque while_instr;
+non terminal Condition cond_instr;
+non terminal Ecrire write_instr;
+non terminal Lire read_instr;
+non terminal Instruction instr;
+non terminal Affectation assign;
+non terminal Unaire op_una;
+non terminal Binaire op_bin;
+non terminal ArrayList<Idf> l_ident;
+non terminal Type type, typebase;
+
+// Precedences
+precedence left PLUS, MINUS, TIMES, DIVIDE, EQUALS, DIFF;
+precedence left INF, SUP, INFEQUAL, SUPEQUAL, AND, OR;
+precedence right TILDA, NOT;
+
+program           ::= header:p declar_lst:decralations STARTPRG body:instructions ENDPRG
+                      {:
+                        p.setDeclarations(decralations);
+                        p.setInstructions(instructions);
+                        System.out.println("ok, c'est good !!!!"); 
+                        RESULT = p;
+                      :};
+
+header            ::= PRG IDENT:id 
+                      {: 
+                        Idf idf = new Idf(id, getFl(), idleft, idright);
+                        RESULT = new DeclarationProgramme(idf, getFl(), idleft, idright);
+                      :};
+
+declar_lst        ::= declars:decralations
+                      {: RESULT = new Bloc(decralations, getFl(), decralationsleft, decralationsright); :};
+
+declars           ::= {: RESULT = new ArrayList(); :}
+                      | 
+                      declars:declarationList declar:declaration
+                      {: 
+                        ArrayList<Instruction> declarations = new ArrayList<Instruction>(declarationList);
+                        declarations.add(declaration);
+                        RESULT = declarations;
+                      :};
+
+declar            ::= declar_var:d  
+                      {: RESULT = d; :}
+                      | 
+                      declar_const:d
+                      {: RESULT = d; :};
+
+declar_var        ::= type:t l_ident:idfs SEMICOLON
+                      {:
+                        RESULT = new DeclarationVariable(t, idfs, getFl(), 0, 0);
+                      :};
+
+l_ident           ::= IDENT:id
+                      {:
+                        Idf idf = new Idf(id, getFl(), idleft, idright);
+                        RESULT = new ArrayList<Idf>(List.of(idf));
+                      :}
+                      |
+                      l_ident:idfs COMMA IDENT:id
+                      {: 
+                        Idf idf = new Idf(id, getFl(), idleft, idright);
+                        idfs.add(idf);
+                        RESULT = idfs;
+                      :};
+
+type              ::= typebase:t
+                      {: RESULT = t; :};
+
+typebase          ::= TINTEGER
+                      {: RESULT = Type.Entier; :}
+                      |
+                      TBOOLEAN
+                      {: RESULT = Type.Booleen; :};
+
+declar_const      ::= CONSTANT type:t IDENT:id EQUAL expr:e SEMICOLON
+                      {:
+                        Idf idf = new Idf(id, getFl(), idleft, idright);
+                        RESULT = new DeclarationConstant(t, idf, e, getFl(), 0, 0);
+                      :};
+
+expr              ::= expr:left op_bin:op expr:right
+                      {:
+                        // build binary expression
+                        op.LierGauche(left);
+                        op.LierDroit(right);
+                        RESULT = op;  
+                      :}
+                      |
+                      op_una:op expr:exp
+                      {:
+                        // build unary expression
+                        op.lier(exp);
+                        RESULT = op;
+                      :}
+                      | 
+                      OPENPARENT expr:e CLOSEPARENT
+                      {: RESULT = new Parentheses(e, getFl(), eleft, eright); :}
+                      | 
+                      operand:operand
+                      {: RESULT = operand; :};
+
+op_bin            ::= PLUS:o
+                      {: RESULT = new Addition(getFl(), oleft, oright); :}
+                      |
+                      MINUS:o
+                      {: RESULT = new Soustraction(getFl(), oleft, oright); :}
+                      |
+                      TIMES:o
+                      {: RESULT = new Produit(getFl(), oleft, oright); :}
+                      |
+                      DIVIDE:o
+                      {: RESULT = new Division(getFl(), oleft, oright); :}
+                      |
+                      EQUALS:o
+                      {: RESULT = new Egal(getFl(), oleft, oright); :} 
+                      |
+                      DIFF:o
+                      {: RESULT = new Diff(getFl(), oleft, oright); :}
+                      |
+                      INF:o
+                      {: RESULT = new Inferieur(getFl(), oleft, oright); :}
+                      |
+                      SUP:o
+                      {: RESULT = new Superieur(getFl(), oleft, oright); :}
+                      |
+                      INFEQUAL:o
+                      {: RESULT = new InfEgal(getFl(), oleft, oright); :}
+                      |
+                      SUPEQUAL:o
+                      {: RESULT = new SupEgal(getFl(), oleft, oright); :}
+                      |
+                      AND:o
+                      {: RESULT = new Et(getFl(), oleft, oright); :}
+                      |
+                      OR:o
+                      {: RESULT = new Ou(getFl(), oleft, oright); :};
+
+op_una            ::= TILDA:o
+                      {: RESULT = new Tilda(getFl(), oleft, oright); :}
+                      |
+                      NOT:o
+                      {: RESULT = new Non(getFl(), oleft, oright); :}
+                      |
+                      MINUS:o
+                      {: RESULT = new Moins(getFl(), oleft, oright); :};
+
+operand           ::= access:access
+                      {: RESULT = access; :}
+                      |
+                      INTEGERCONST:ib
+                      {: RESULT = new Nombre(ib, getFl(), ibleft, ibright); :}
+                      |
+                      TRUE:ib
+                      {: RESULT = new Vrai(getFl(), ibleft, ibright); :}
+                      |
+                      FALSE:ib
+                      {: RESULT = new Faux(getFl(), ibleft, ibright); :};
+
+access            ::= IDENT:id
+                      {: RESULT = new Idf(id, getFl(), idleft, idright); :};
+
+body              ::= instr_lst:instructions
+                      {: RESULT = new Bloc(instructions, getFl(), instructionsleft, instructionsright); :};
+
+instr_lst         ::= {: RESULT = new ArrayList(); :}
+                      | 
+                      instr_lst:instructionList instr:instruction
+                      {:
+                        ArrayList<Instruction> instructions = new ArrayList<Instruction>(instructionList);
+                        instructions.add(instruction);
+                        RESULT = instructions;
+                      :};
+
+instr             ::= assign:instr                  
+                      {: RESULT = instr; :}
+                      |
+                      write_instr:instr           
+                      {: RESULT = instr; :}
+                      |
+                      read_instr:instr               
+                      {: RESULT = instr; :}
+                      |
+                      cond_instr:instr               
+                      {: RESULT = instr; :}
+                      |
+                      while_instr:instr               
+                      {: RESULT = instr; :}
+                      |
+                      for_instr:instr                 
+                      {: RESULT = instr; :};
+
+assign            ::= access:dest EQUAL:e expr:src SEMICOLON
+                      {: RESULT = new Affectation(dest, src, getFl(), eleft, eright); :};
+
+write_instr       ::= WRITE expr:e SEMICOLON
+                      {: RESULT = new Ecrire(e, getFl(), eleft, eright); :}
+                      | 
+                      WRITE STRINGCONST:s SEMICOLON
+                      {:
+                        Chaine c = new Chaine(s, getFl(), sleft, sright);
+                        RESULT = new Ecrire(c, getFl(), sleft, sright);
+                      :};
+
+read_instr        ::= READ IDENT:id SEMICOLON
+                      {:
+                        Idf idf = new Idf(id, getFl(), idleft, idright);
+                        RESULT = new Lire(idf, getFl(), idleft, idright);
+                      :};
+
+cond_instr        ::= IF:f expr:expr THEN body:body_then ELSE body:body_else ENDIF
+                      {: RESULT = new Condition(expr, body_then, Optional.of(body_else), getFl(), fleft, fright); :}
+                      | 
+                      IF:f expr:expr THEN body:body_then ENDIF
+                      {: RESULT = new Condition(expr, body_then, Optional.empty(), getFl(), fleft, fright); :};
+
+while_instr       ::= WHILE expr:expr DO body:body ENDWHILE
+                      {: RESULT = new Tantque(expr, body, getFl(), exprleft, exprright); :};
+
+for_instr         ::= FOR:f IDENT:id FROM expr:from TO expr:to DO body:body ENDFOR
+                      {:
+                        Idf idf = new Idf(id, getFl(), idleft, idright);
+                        RESULT = new Pour(idf, from, to, body, getFl(), fleft, fright);
+                      :};

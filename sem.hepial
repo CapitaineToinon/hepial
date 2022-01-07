@@ -3,5 +3,6 @@ programme demo
 entier lmao;
 
 debutprg
-  lmao = vrai;
+  // lmao = 5;
+  // lmao = lmao + 4;
 finprg

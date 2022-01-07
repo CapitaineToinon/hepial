@@ -8,7 +8,7 @@
       "type": "java",
       "name": "Launch App",
       "request": "launch",
-      "mainClass": "App",
+      "mainClass": "main.App",
       "args": "${command:SpecifyProgramArgs}"
     }
   ]
