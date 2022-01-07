@@ -1,20 +1,13 @@
 package main.ast.expression;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import main.Type;
 import main.TableDesSymboles;
 import main.ast.ASTVisitor;
 
-/*
+/**
  * Represent an identifier node inside the AST.
-*/
-
+ */
 public class Idf extends Expression {
-
-    public static List<Idf> all = new ArrayList<Idf>();
-
     /**
      * Name of the
      */
@@ -26,13 +19,12 @@ public class Idf extends Expression {
     public Idf(String nom, String fl, int line, int col) {
         super(fl, line, col);
         this.nom = nom;
-        all.add(this);
     }
 
     /**
      * Get the identifier value
      */
-    public String getNom() {
+    public String GetNom() {
         return this.nom;
     }
 

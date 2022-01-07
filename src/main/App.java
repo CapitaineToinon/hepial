@@ -75,6 +75,7 @@ public class App {
 			// analyse sémantique
 			AnalyseSemantique analyseur = new AnalyseSemantique();
 			program.accept(analyseur);
+			System.out.println("[test.java] Le programme est sémantiquement correct !");
 		} catch (Exception e) {
 			System.out.println("[test.java] AnalyseSemantique failed");
 			throw e;

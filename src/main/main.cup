@@ -2,13 +2,13 @@ package main;
 
 import main.*;
 import main.ast.*;
+import main.ast.exceptions.*;
 import main.ast.expression.*;
 import main.ast.expression.binaire.*;
 import main.ast.expression.binaire.arithmetique.*;
 import main.ast.expression.binaire.relation.*;
 import main.ast.expression.unaire.*;
 import main.ast.instruction.*;
-import main.exceptions.*;
 
 import java.io.*;
 import java.util.*;

@@ -1,8 +1,10 @@
 programme demo
 
 entier lmao;
+booleen estVivant;
 
 debutprg
-  // lmao = 5;
-  // lmao = lmao + 4;
+  lmao = 5;
+  lmao = lmao + 1;
+  estVivant = faux <= vrai;
 finprg

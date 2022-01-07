@@ -9,23 +9,23 @@ public class Tantque extends Instruction {
 
     public Tantque(Expression condition, Bloc instructions, String fl, int line, int col) {
         super(fl, line, col);
-        this.setCondition(condition);
-        this.setInstructions(instructions);
+        this.SetCondition(condition);
+        this.SetInstructions(instructions);
     }
 
-    public Expression getCondition() {
+    public Expression GetCondition() {
         return condition;
     }
 
-    public void setCondition(Expression condition) {
+    public void SetCondition(Expression condition) {
         this.condition = condition;
     }
 
-    public Bloc getInstructions() {
+    public Bloc GetInstructions() {
         return instructions;
     }
 
-    public void setInstructions(Bloc instructions) {
+    public void SetInstructions(Bloc instructions) {
         this.instructions = instructions;
     }
 

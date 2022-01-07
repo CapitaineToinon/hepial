@@ -12,41 +12,41 @@ public class Pour extends Instruction {
 
     public Pour(Idf iterator, Expression from, Expression to, Bloc instructions, String fl, int line, int col) {
         super(fl, line, col);
-        this.setIterator(iterator);
-        this.setFrom(from);
-        this.setTo(to);
-        this.setInstructions(instructions);
+        this.SetIterator(iterator);
+        this.SetFrom(from);
+        this.SetTo(to);
+        this.SetInstructions(instructions);
     }
 
-    public Bloc getInstructions() {
+    public Bloc GetInstructions() {
         return instructions;
     }
 
-    public void setInstructions(Bloc instructions) {
+    public void SetInstructions(Bloc instructions) {
         this.instructions = instructions;
     }
 
-    public Expression getTo() {
+    public Expression GetTo() {
         return to;
     }
 
-    public void setTo(Expression to) {
+    public void SetTo(Expression to) {
         this.to = to;
     }
 
-    public Expression getFrom() {
+    public Expression GetFrom() {
         return from;
     }
 
-    public void setFrom(Expression from) {
+    public void SetFrom(Expression from) {
         this.from = from;
     }
 
-    public Idf getIteratorName() {
+    public Idf GetIteratorName() {
         return iterator;
     }
 
-    public void setIterator(Idf iterator) {
+    public void SetIterator(Idf iterator) {
         this.iterator = iterator;
     }
 

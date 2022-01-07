@@ -73,15 +73,15 @@ public class SourceCodeGenerator implements ASTVisitor {
 
     public Object visit(Condition node) throws Exception {
         code += "si ";
-        node.getCondition().accept(this);
+        node.GetCondition().accept(this);
         code += " alors";
         level += 1;
-        node.getThenInstructions().accept(this);
-        if (node.hasElse()) {
+        node.GetThenInstructions().accept(this);
+        if (node.GetElseInstructions().isPresent()) {
             code += "\n";
             addTabulation(level - 1);
             code += "sinon";
-            node.getElseInstructions().get().accept(this);
+            node.GetElseInstructions().get().accept(this);
         }
         level -= 1;
         code += "\n";
@@ -184,7 +184,7 @@ public class SourceCodeGenerator implements ASTVisitor {
     }
 
     public Object visit(Idf node) throws Exception {
-        code += node.getNom();
+        code += node.GetNom();
         return null;
     }
 
@@ -242,14 +242,14 @@ public class SourceCodeGenerator implements ASTVisitor {
 
     public Object visit(Pour node) throws Exception {
         code += "pour ";
-        node.getIteratorName().accept(this);
+        node.GetIteratorName().accept(this);
         code += " allantde ";
-        node.getFrom().accept(this);
+        node.GetFrom().accept(this);
         code += " a ";
-        node.getTo().accept(this);
+        node.GetTo().accept(this);
         code += " faire";
         level += 1;
-        node.getInstructions().accept(this);
+        node.GetInstructions().accept(this);
         level -= 1;
         code += "\n";
         addTabulation();
@@ -295,10 +295,10 @@ public class SourceCodeGenerator implements ASTVisitor {
 
     public Object visit(Tantque node) throws Exception {
         code += "tantque ";
-        node.getCondition().accept(this);
+        node.GetCondition().accept(this);
         code += " faire";
         level += 1;
-        node.getInstructions().accept(this);
+        node.GetInstructions().accept(this);
         level -= 1;
         code += "\n";
         addTabulation();

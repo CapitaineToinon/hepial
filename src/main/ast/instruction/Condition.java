@@ -18,25 +18,20 @@ public class Condition extends Instruction {
         this.elseInstructions = elseInstructions;
     }
 
-    public Expression getCondition() {
+    public Expression GetCondition() {
         return condition;
     }
 
-    public Bloc getThenInstructions() {
+    public Bloc GetThenInstructions() {
         return thenInstructions;
     }
 
-    public Optional<Bloc> getElseInstructions() {
+    public Optional<Bloc> GetElseInstructions() {
         return elseInstructions;
-    }
-
-    public boolean hasElse() {
-        return this.elseInstructions.isPresent();
     }
 
     @Override
     public Object accept(ASTVisitor visitor) throws Exception {
         return visitor.visit(this);
     }
-
 }
