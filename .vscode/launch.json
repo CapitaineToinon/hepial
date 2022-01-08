@@ -8,7 +8,7 @@
       "type": "java",
       "name": "Launch App",
       "request": "launch",
-      "mainClass": "main.App",
+      "mainClass": "hepial.App",
       "args": "${command:SpecifyProgramArgs}"
     }
   ]

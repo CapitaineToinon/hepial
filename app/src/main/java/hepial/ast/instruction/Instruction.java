@@ -1,0 +1,16 @@
+package hepial.ast.instruction;
+
+import hepial.ast.ASTNode;
+
+/*
+ * Base class that represent an instruction node inside the AST.
+ */
+public abstract class Instruction extends ASTNode {
+
+    /**
+     * Constructor
+     */
+    public Instruction(String fl, int line, int col) {
+        super(fl, line, col);
+    }
+}

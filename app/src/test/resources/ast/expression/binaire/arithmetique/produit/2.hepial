@@ -1,0 +1,7 @@
+programme demo
+
+entier test;
+
+debutprg
+  test = 1 * vrai;
+finprg
