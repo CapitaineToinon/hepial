@@ -1,0 +1,7 @@
+programme demo
+
+entier test;
+
+debutprg
+  lire test;
+finprg

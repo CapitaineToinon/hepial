@@ -1,0 +1,23 @@
+programme demo
+
+entier n;
+constante entier left = 5;
+constante entier right = 10;
+
+debutprg
+  pour n allantde 5 a 10 faire
+		ecrire n;
+	finpour
+
+  pour n allantde 0 a -10 faire
+		ecrire n;
+	finpour
+
+  pour n allantde 1000000 a (15 + 4) faire
+		ecrire n;
+	finpour
+
+  pour n allantde left a right faire
+		ecrire n;
+	finpour
+finprg

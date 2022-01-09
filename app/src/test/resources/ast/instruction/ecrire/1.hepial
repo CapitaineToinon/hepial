@@ -1,0 +1,18 @@
+programme demo
+
+constante entier int1 = 1;
+constante booleen bool1 = vrai;
+
+debutprg
+    ecrire "salut";
+    ecrire 5;
+    ecrire 5 + 10;
+    ecrire 5 + (15 * 2);
+    ecrire vrai;
+    ecrire faux;
+    ecrire 5 > 0;
+    ecrire - 5;
+    ecrire non vrai;
+    ecrire int1;
+    ecrire bool1;
+finprg

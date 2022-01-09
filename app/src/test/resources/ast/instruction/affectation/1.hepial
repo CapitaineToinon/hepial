@@ -1,0 +1,13 @@
+programme demo
+
+entier test;
+entier b;
+booleen bool;
+
+debutprg
+  test = 5;
+  b = 15 + 5;
+  b = test + 4;
+  bool = 5 == 5;
+  bool = 5 <> 3;
+finprg

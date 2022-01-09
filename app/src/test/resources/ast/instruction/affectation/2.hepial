@@ -1,0 +1,7 @@
+programme demo
+
+constante entier test = 5;
+
+debutprg
+  test = 6;
+finprg

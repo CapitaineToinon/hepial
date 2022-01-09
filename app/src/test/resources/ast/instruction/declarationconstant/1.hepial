@@ -1,0 +1,11 @@
+programme demo
+
+constante entier int1 = 5;
+constante entier int2 = (10 + 4);
+constante entier int3 = -6;
+constante booleen bool1 = vrai;
+constante booleen bool2 = 5 > 4;
+constante booleen bool3 = bool1;
+
+debutprg
+finprg

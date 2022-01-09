@@ -1,0 +1,15 @@
+programme demo
+
+debutprg
+  tantque 5 > 5 faire
+  fintantque
+
+  tantque 0 == 1 faire
+  fintantque
+
+  tantque vrai faire
+  fintantque
+
+  tantque faux faire
+  fintantque
+finprg

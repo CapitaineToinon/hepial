@@ -1,0 +1,9 @@
+programme demo
+
+constante entier n = 5;
+
+debutprg
+  pour n allantde 5 a 10 faire
+		ecrire n;
+	finpour
+finprg

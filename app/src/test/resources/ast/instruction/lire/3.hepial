@@ -1,0 +1,7 @@
+programme demo
+
+booleen bool;
+
+debutprg
+  lire bool;
+finprg

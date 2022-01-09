@@ -1,0 +1,9 @@
+programme demo
+
+entier n;
+
+debutprg
+  pour n allantde vrai a 10 faire
+		ecrire n;
+	finpour
+finprg

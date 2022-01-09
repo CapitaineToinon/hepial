@@ -154,7 +154,7 @@ public class AnalyseSemantique implements ASTVisitor {
     exp.accept(this);
 
     if (type != exp.GetType()) {
-      throw new SemantiqueException(idf, String
+      throw new IncompatibleTypeException(idf, String
           .format("impossible d'assigner la valeur type %s à la constante de type %s",
               exp.GetType().GetLabel(),
               type.GetLabel()));
@@ -427,6 +427,11 @@ public class AnalyseSemantique implements ASTVisitor {
 
     from.accept(this);
     to.accept(this);
+
+    if (TableDesSymboles.constants.containsKey(iterator.GetNom())) {
+      throw new AssignConstantException(iterator,
+          String.format("impossible d'assigner la constante %s", iterator.GetNom()));
+    }
 
     if (iterator.GetType() != Type.Entier) {
       throw new IncompatibleTypeException(iterator,

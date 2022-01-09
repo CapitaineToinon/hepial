@@ -1,0 +1,16 @@
+programme demo
+
+debutprg
+  si 10 > 5 alors
+  finsi
+
+  si vrai alors
+  finsi
+
+  si faux alors
+  finsi
+
+  si vrai alors
+  sinon
+  finsi
+finprg

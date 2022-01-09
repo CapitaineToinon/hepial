@@ -1,0 +1,9 @@
+programme demo
+
+booleen n;
+
+debutprg
+  pour n allantde 5 a 10 faire
+		ecrire n;
+	finpour
+finprg
