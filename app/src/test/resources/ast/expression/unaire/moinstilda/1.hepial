@@ -1,0 +1,10 @@
+programme demo
+
+entier test;
+
+debutprg
+  test = -2;
+  test = -10;
+  test = ~2;
+  test = ~10;
+finprg
