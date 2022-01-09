@@ -1,0 +1,7 @@
+programme demo
+
+booleen test;
+
+debutprg
+  test = 2 <= faux;
+finprg

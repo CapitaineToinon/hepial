@@ -3,22 +3,16 @@ package hepial.ast.expression.binaire.arithmetique;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.fail;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import hepial.Utils;
 import hepial.ast.exceptions.IncompatibleTypeException;
 import hepial.ast.exceptions.SemantiqueException;
 import hepial.App;
-import hepial.TableDesSymboles;
+import hepial.SemantiqueTest;
 
-public class AdditionTest {
+public class AdditionTest extends SemantiqueTest {
     private final String TESTS_FOLDER = "ast/expression/binaire/arithmetique/addition";
-
-    @Before
-    public void test() {
-        TableDesSymboles.clear();
-    }
 
     @Test
     public void addition_ok() throws Exception {

@@ -1,0 +1,9 @@
+programme demo
+
+booleen test;
+
+debutprg
+  test = vrai et vrai;
+  test = vrai et faux;
+  test = faux et vrai;
+finprg
