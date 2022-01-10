@@ -7,12 +7,12 @@ import java.nio.file.Path;
 
 import org.junit.Test;
 
+import hepial.SemantiqueTest;
 import hepial.Utils;
 import hepial.ast.AnalyseSemantique;
 import hepial.ast.exceptions.IncompatibleTypeException;
 import hepial.ast.exceptions.SemantiqueException;
 import hepial.ast.instruction.DeclarationProgramme;
-import hepial.SemantiqueTest;
 
 public class AdditionTest extends SemantiqueTest {
     private final Path TESTS_FOLDER = Utils.resources.resolve("ast/expression/binaire/arithmetique/addition");

@@ -3,24 +3,27 @@ package hepial.ast.instruction;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.fail;
 
+import java.nio.file.Path;
+
 import org.junit.Test;
 
-import hepial.App;
 import hepial.SemantiqueTest;
 import hepial.Utils;
+import hepial.ast.AnalyseSemantique;
 import hepial.ast.exceptions.AlreadyDefinedException;
 import hepial.ast.exceptions.IncompatibleTypeException;
 import hepial.ast.exceptions.SemantiqueException;
 
 public class DeclarationConstantTest extends SemantiqueTest {
-    private final String TESTS_FOLDER = "ast/instruction/declarationconstant";
+    private final Path TESTS_FOLDER = Utils.resources.resolve("ast/instruction/declarationconstant");
 
     @Test
     public void declarationconstant_ok() throws Exception {
-        String[] mock = Utils.buildArgs(TESTS_FOLDER, "1.hepial");
+        DeclarationProgramme program = Utils.getProgram(TESTS_FOLDER.resolve("1.hepial"));
+        AnalyseSemantique semantique = new AnalyseSemantique();
 
         try {
-            App.main(mock);
+            program.accept(semantique);
         } catch (SemantiqueException e) {
             fail("should not have failed");
         }
@@ -28,19 +31,22 @@ public class DeclarationConstantTest extends SemantiqueTest {
 
     @Test
     public void declarationconstant_type_check_1() throws Exception {
-        String[] mock = Utils.buildArgs(TESTS_FOLDER, "2.hepial");
-        assertThrows(IncompatibleTypeException.class, () -> App.main(mock));
+        DeclarationProgramme program = Utils.getProgram(TESTS_FOLDER.resolve("2.hepial"));
+        AnalyseSemantique semantique = new AnalyseSemantique();
+        assertThrows(IncompatibleTypeException.class, () -> program.accept(semantique));
     }
 
     @Test
     public void declarationconstant_type_check_2() throws Exception {
-        String[] mock = Utils.buildArgs(TESTS_FOLDER, "3.hepial");
-        assertThrows(IncompatibleTypeException.class, () -> App.main(mock));
+        DeclarationProgramme program = Utils.getProgram(TESTS_FOLDER.resolve("3.hepial"));
+        AnalyseSemantique semantique = new AnalyseSemantique();
+        assertThrows(IncompatibleTypeException.class, () -> program.accept(semantique));
     }
 
     @Test
     public void declarationconstant_already_defined() throws Exception {
-        String[] mock = Utils.buildArgs(TESTS_FOLDER, "4.hepial");
-        assertThrows(AlreadyDefinedException.class, () -> App.main(mock));
+        DeclarationProgramme program = Utils.getProgram(TESTS_FOLDER.resolve("4.hepial"));
+        AnalyseSemantique semantique = new AnalyseSemantique();
+        assertThrows(AlreadyDefinedException.class, () -> program.accept(semantique));
     }
 }
