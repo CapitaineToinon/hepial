@@ -209,7 +209,7 @@ public class ByteCodeGenerator implements ASTVisitor {
         code += ln(f(".limit locals %s", localsLimit));
         code += variables;
         code += main;
-        code += ln(f("exit_label:")); // in case we need early return anywher)e
+        code += ln(f("exit_label:")); // in case we need early return anywhere
         code += ln(f("return"));
 
         indent = false;
