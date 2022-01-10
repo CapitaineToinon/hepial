@@ -38,7 +38,9 @@ gradle-app.setting
 # End of https://www.gitignore.io/api/java,gradle
 
 # memes
+*.Identifier
 **/*.Identifier
 
 # ignoring jasmin compiled files
+*.j
 **/*.j
