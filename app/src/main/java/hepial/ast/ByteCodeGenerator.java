@@ -357,8 +357,39 @@ public class ByteCodeGenerator implements ASTVisitor {
 
     @Override
     public Object visit(Pour node) throws Exception {
-        // TODO Auto-generated method stub
-        return null;
+        Idf idf = node.GetIteratorName();
+        int index = variableTable.get(idf.GetNom());
+
+        String code = "";
+        code += node.GetFrom().accept(this);
+        code += ln(c(f("istore %d", index), idf.GetNom()));
+
+        String loopLabel = nextLabel();
+        String exitLabel = nextLabel();
+
+        // start of the loop
+        code += ln(c(f("%s:", loopLabel), "loop"));
+
+        // condition to leave the loop
+        code += node.GetTo().accept(this);
+        code += node.GetIteratorName().accept(this);
+        code += ln(f("if_icmplt %s", exitLabel));
+
+        // loop instructions
+        code += node.GetInstructions().accept(this);
+
+        // load the loop variable again and increment
+        code += node.GetIteratorName().accept(this);
+        code += ln(f("ldc 1"));
+        code += ln(f("iadd"));
+        code += ln(c(f("istore %d", index), idf.GetNom()));
+
+        // jump back to the loop start
+        code += ln(f("goto %s", loopLabel));
+
+        // end of the loop
+        code += ln(c(f("%s:", exitLabel), "exit"));
+        return code;
     }
 
     @Override
