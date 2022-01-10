@@ -160,4 +160,17 @@ public class ByteCodeGeneratorTest {
         String actual = (String) program.accept(generator);
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void generator_teacher_12() throws Exception {
+        String hepial = "12.hepial";
+        String bytecode = "12.bytecode";
+
+        Path source = TESTS_FOLDER.resolve(hepial);
+        DeclarationProgramme program = getProgram(source);
+        ByteCodeGenerator generator = getGenerator();
+        String expected = Utils.readResource(TESTS_FOLDER.resolve(bytecode));
+        String actual = (String) program.accept(generator);
+        assertEquals(expected, actual);
+    }
 }

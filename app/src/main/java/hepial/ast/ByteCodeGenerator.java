@@ -3,7 +3,6 @@ package hepial.ast;
 import java.util.HashMap;
 import java.util.Map;
 
-import hepial.TableDesSymboles;
 import hepial.ast.expression.*;
 import hepial.ast.expression.binaire.arithmetique.*;
 import hepial.ast.expression.binaire.relation.*;
@@ -13,21 +12,20 @@ import hepial.ast.instruction.*;
 public class ByteCodeGenerator implements ASTVisitor {
     private int stackLimit = 20000;
     private int localsLimit = 1;
-
-    private int labelId = 0;
+    private int variableTableIndex = 0;
+    private int labelIndex = 0;
     private boolean indent = false;
     private boolean pretty = false;
 
+    // Index table used by jasmin in the .var instruction
+    // called variables but also contains constantes
     private final Map<String, Integer> variableTable = new HashMap<>();
 
-    public ByteCodeGenerator() {
-        // built a table of variables with their relative jasmin var index
-        int index = 0;
-        for (String entry : TableDesSymboles.variables.keySet()) {
-            variableTable.put(entry, index++);
-        }
-    }
-
+    /**
+     * Set pretty print to add intend and comments to the byte code
+     * 
+     * @param pretty
+     */
     public void setPretty(boolean pretty) {
         this.pretty = pretty;
     }
@@ -78,8 +76,13 @@ public class ByteCodeGenerator implements ASTVisitor {
         return String.format("%s ; %s", line, comment);
     }
 
+    /**
+     * Generates a unique label name
+     * 
+     * @return
+     */
     private String nextLabel() {
-        return String.format("label_%d", labelId++);
+        return String.format("label_%d", labelIndex++);
     }
 
     private String buildCmp(Relation node, String instruction) throws Exception {
@@ -94,6 +97,33 @@ public class ByteCodeGenerator implements ASTVisitor {
         code += ln(f("%s:", thenLabel));
         code += ln(f("iconst_1"));
         code += ln(f("%s:", finallyLabel));
+        return code;
+    }
+
+    private String buildVar(Idf idf, String source) throws Exception {
+        String code = "";
+        String type;
+
+        // save to the table for access in other nodes
+        localsLimit += 1;
+        variableTable.put(idf.GetNom(), variableTableIndex++);
+
+        switch (idf.GetType()) {
+            case Entier:
+                type = "I";
+                break;
+            case Booleen:
+                type = "Z";
+                break;
+            default:
+                throw new UnsupportedOperationException();
+        }
+
+        String name = idf.GetNom();
+        int index = variableTable.get(name);
+        code += ln(f(".var %d is %s %s", index, name, type));
+        code += source;
+        code += ln(f("istore %d", index));
         return code;
     }
 
@@ -159,9 +189,9 @@ public class ByteCodeGenerator implements ASTVisitor {
 
     @Override
     public Object visit(DeclarationConstant node) throws Exception {
-        // Don't actually write code yet, we will just return the
-        // constant value later whenever the constant is accessed
-        return "";
+        // we treat constantes like variables, we already ensured constantes won't ever
+        // be assigned in the semantic analysis
+        return buildVar(node.getIdentifier(), (String) node.getExpression().accept(this));
     }
 
     @Override
@@ -192,28 +222,7 @@ public class ByteCodeGenerator implements ASTVisitor {
         String code = "";
 
         for (Idf idf : node.getIdentifiants()) {
-            localsLimit += 1;
-
-            String type;
-
-            switch (idf.GetType()) {
-                case Entier:
-                    type = "I";
-                    break;
-                case Booleen:
-                    type = "Z";
-                    break;
-                default:
-                    throw new Exception(
-                            String.format("le type %s ne peut pas être utilisé avec l'instruction DeclarationVariable",
-                                    node.getType().GetLabel()));
-            }
-
-            String name = idf.GetNom();
-            int index = variableTable.get(name);
-            code += ln(f(".var %d is %s %s", index, name, type));
-            code += ln(f("ldc 0"));
-            code += ln(f("istore %d", index));
+            code += buildVar(idf, ln(f("ldc 0")));
         }
 
         return code;
@@ -293,7 +302,6 @@ public class ByteCodeGenerator implements ASTVisitor {
 
     @Override
     public Object visit(Idf node) throws Exception {
-        // assuming trying to access
         int index = variableTable.get(node.GetNom());
         return ln(c(f("iload %d", index), node.GetNom()));
     }
