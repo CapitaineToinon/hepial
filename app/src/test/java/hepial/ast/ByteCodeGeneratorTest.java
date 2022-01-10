@@ -1,6 +1,7 @@
 package hepial.ast;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assume.assumeNoException;
 
 import java.nio.file.Path;
 
@@ -9,6 +10,7 @@ import org.junit.Test;
 
 import hepial.TableDesSymboles;
 import hepial.Utils;
+import hepial.ast.exceptions.SemantiqueException;
 import hepial.ast.instruction.DeclarationProgramme;
 
 public class ByteCodeGeneratorTest {
@@ -21,9 +23,19 @@ public class ByteCodeGeneratorTest {
     }
 
     private static DeclarationProgramme getProgram(Path source) throws Exception {
-        DeclarationProgramme program = Utils.getProgram(source);
-        AnalyseSemantique analyseur = new AnalyseSemantique();
-        program.accept(analyseur);
+        DeclarationProgramme program = null;
+
+        try {
+            program = Utils.getProgram(source);
+            // Do the semantique to populate the table of symbols
+            AnalyseSemantique analyseur = new AnalyseSemantique();
+            program.accept(analyseur);
+            return program;
+        } catch (SemantiqueException e) {
+            // skip the test if a SemantiqueException happened
+            assumeNoException(e);
+        }
+
         return program;
     }
 
