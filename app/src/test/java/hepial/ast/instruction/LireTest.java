@@ -11,7 +11,6 @@ import hepial.SemantiqueTest;
 import hepial.Utils;
 import hepial.ast.AnalyseSemantique;
 import hepial.ast.exceptions.AssignConstantException;
-import hepial.ast.exceptions.IncompatibleTypeException;
 import hepial.ast.exceptions.SemantiqueException;
 
 public class LireTest extends SemantiqueTest {
@@ -34,12 +33,5 @@ public class LireTest extends SemantiqueTest {
         DeclarationProgramme program = Utils.getProgram(TESTS_FOLDER.resolve("2.hepial"));
         AnalyseSemantique semantique = new AnalyseSemantique();
         assertThrows(AssignConstantException.class, () -> program.accept(semantique));
-    }
-
-    @Test
-    public void lire_type_check() throws Exception {
-        DeclarationProgramme program = Utils.getProgram(TESTS_FOLDER.resolve("3.hepial"));
-        AnalyseSemantique semantique = new AnalyseSemantique();
-        assertThrows(IncompatibleTypeException.class, () -> program.accept(semantique));
     }
 }

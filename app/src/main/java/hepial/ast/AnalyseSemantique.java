@@ -369,7 +369,9 @@ public class AnalyseSemantique implements ASTVisitor {
           String.format("impossible d'assigner la constante %s", exp.GetNom()));
     }
 
-    if (exp.GetType() != Type.Entier) {
+    List<Type> types = List.of(Type.Entier, Type.Booleen);
+
+    if (!types.contains(exp.GetType())) {
       throw new IncompatibleTypeException(node,
           String.format("l'instruction %s ne supporte pas le type %s", node.getClass().getSimpleName(),
               exp.GetType().GetLabel()));

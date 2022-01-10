@@ -1,7 +1,9 @@
 programme demo
 
 entier test;
+booleen test2;
 
 debutprg
   lire test;
+  lire test2;
 finprg
