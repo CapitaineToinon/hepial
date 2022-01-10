@@ -84,10 +84,10 @@ public class ByteCodeGenerator implements ASTVisitor {
 
     private String buildCmp(Relation node, String instruction) throws Exception {
         String code = "";
-        code += (String) node.GetGauche().accept(this);
-        code += (String) node.GetDroite().accept(this);
         String thenLabel = nextLabel();
         String finallyLabel = nextLabel();
+        code += (String) node.GetGauche().accept(this);
+        code += (String) node.GetDroite().accept(this);
         code += ln(f("if_icmp%s %s", instruction, thenLabel));
         code += ln(f("iconst_0"));
         code += ln(f("goto %s", finallyLabel));
@@ -137,25 +137,24 @@ public class ByteCodeGenerator implements ASTVisitor {
 
     @Override
     public Object visit(Condition node) throws Exception {
-        if (node.GetElseInstructions().isPresent()) {
-            String elseLabel = nextLabel();
-            String finallyLabel = nextLabel();
-            String code = (String) node.GetCondition().accept(this);
-            code += ln(f("if_icmpne %s", elseLabel));
-            code += node.GetThenInstructions().accept(this);
-            code += ln(f("goto %s", finallyLabel));
-            code += ln(f("%s:", elseLabel));
-            code += node.GetElseInstructions().get().accept(this);
-            code += ln(f("%s:", finallyLabel));
-            return code;
-        } else {
-            String code = (String) node.GetCondition().accept(this);
-            String finallyLabel = nextLabel();
-            code += ln(f("if_icmpne %s", finallyLabel));
-            code += node.GetThenInstructions().accept(this);
-            code += ln(f("%s:", finallyLabel));
-            return code;
-        }
+        String code = (String) node.GetCondition().accept(this);
+
+        // compute the then and else code before getting the labels for the jumps
+        String thenCode = (String) node.GetThenInstructions().accept(this);
+        String elseCode = node.GetElseInstructions().isPresent()
+                ? (String) node.GetElseInstructions().get().accept(this)
+                : "";
+
+        // actual if then logic
+        String elseLabel = nextLabel();
+        String finallyLabel = nextLabel();
+        code += ln(f("ifeq %s", elseLabel));
+        code += thenCode;
+        code += ln(f("goto %s", finallyLabel));
+        code += ln(f("%s:", elseLabel));
+        code += elseCode;
+        code += ln(f("%s:", finallyLabel));
+        return code;
     }
 
     @Override
