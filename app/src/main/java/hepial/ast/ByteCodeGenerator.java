@@ -300,8 +300,7 @@ public class ByteCodeGenerator implements ASTVisitor {
 
     @Override
     public Object visit(InfEgal node) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException();
+        return buildCmp(node, "le");
     }
 
     @Override
@@ -312,7 +311,7 @@ public class ByteCodeGenerator implements ASTVisitor {
     @Override
     public Object visit(Lire node) throws Exception {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException();
+        return null;
     }
 
     @Override
@@ -359,7 +358,7 @@ public class ByteCodeGenerator implements ASTVisitor {
     @Override
     public Object visit(Pour node) throws Exception {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException();
+        return null;
     }
 
     @Override
@@ -396,10 +395,9 @@ public class ByteCodeGenerator implements ASTVisitor {
         String loopLabel = nextLabel();
         String endLabel = nextLabel();
 
-        code += ln(f("%s: ; loop", loopLabel));
+        code += ln(c(f("%s:", loopLabel), "loop"));
         code += node.GetCondition().accept(this);
-        code += ln(f("ldc 1"));
-        code += ln(f("if_icmpne %s", endLabel));
+        code += ln(f("ifeq %s", endLabel));
         code += node.GetInstructions().accept(this);
         code += ln(f("goto %s", loopLabel));
         code += ln(f("%s:", endLabel));
@@ -409,7 +407,7 @@ public class ByteCodeGenerator implements ASTVisitor {
     @Override
     public Object visit(Tilda node) throws Exception {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException();
+        return null;
     }
 
     @Override
