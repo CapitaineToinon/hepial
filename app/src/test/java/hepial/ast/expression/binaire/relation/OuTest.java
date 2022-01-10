@@ -16,7 +16,7 @@ public class OuTest extends SemantiqueTest {
 
     @Test
     public void ou_ok() throws Exception {
-        String[] mock = Utils.BuildArgs(TESTS_FOLDER, "1.hepial");
+        String[] mock = Utils.buildArgs(TESTS_FOLDER, "1.hepial");
 
         try {
             App.main(mock);
@@ -27,13 +27,13 @@ public class OuTest extends SemantiqueTest {
 
     @Test
     public void ou_type_check_1() throws Exception {
-        String[] mock = Utils.BuildArgs(TESTS_FOLDER, "2.hepial");
+        String[] mock = Utils.buildArgs(TESTS_FOLDER, "2.hepial");
         assertThrows(IncompatibleTypeException.class, () -> App.main(mock));
     }
 
     @Test
     public void ou_type_check_2() throws Exception {
-        String[] mock = Utils.BuildArgs(TESTS_FOLDER, "3.hepial");
+        String[] mock = Utils.buildArgs(TESTS_FOLDER, "3.hepial");
         assertThrows(IncompatibleTypeException.class, () -> App.main(mock));
     }
 }

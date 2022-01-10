@@ -17,7 +17,7 @@ public class DeclarationConstantTest extends SemantiqueTest {
 
     @Test
     public void declarationconstant_ok() throws Exception {
-        String[] mock = Utils.BuildArgs(TESTS_FOLDER, "1.hepial");
+        String[] mock = Utils.buildArgs(TESTS_FOLDER, "1.hepial");
 
         try {
             App.main(mock);
@@ -28,19 +28,19 @@ public class DeclarationConstantTest extends SemantiqueTest {
 
     @Test
     public void declarationconstant_type_check_1() throws Exception {
-        String[] mock = Utils.BuildArgs(TESTS_FOLDER, "2.hepial");
+        String[] mock = Utils.buildArgs(TESTS_FOLDER, "2.hepial");
         assertThrows(IncompatibleTypeException.class, () -> App.main(mock));
     }
 
     @Test
     public void declarationconstant_type_check_2() throws Exception {
-        String[] mock = Utils.BuildArgs(TESTS_FOLDER, "3.hepial");
+        String[] mock = Utils.buildArgs(TESTS_FOLDER, "3.hepial");
         assertThrows(IncompatibleTypeException.class, () -> App.main(mock));
     }
 
     @Test
     public void declarationconstant_already_defined() throws Exception {
-        String[] mock = Utils.BuildArgs(TESTS_FOLDER, "4.hepial");
+        String[] mock = Utils.buildArgs(TESTS_FOLDER, "4.hepial");
         assertThrows(AlreadyDefinedException.class, () -> App.main(mock));
     }
 }

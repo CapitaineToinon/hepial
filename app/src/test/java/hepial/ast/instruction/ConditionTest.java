@@ -16,7 +16,7 @@ public class ConditionTest extends SemantiqueTest {
 
     @Test
     public void condition_ok() throws Exception {
-        String[] mock = Utils.BuildArgs(TESTS_FOLDER, "1.hepial");
+        String[] mock = Utils.buildArgs(TESTS_FOLDER, "1.hepial");
 
         try {
             App.main(mock);
@@ -27,7 +27,7 @@ public class ConditionTest extends SemantiqueTest {
 
     @Test
     public void condition_type_check() throws Exception {
-        String[] mock = Utils.BuildArgs(TESTS_FOLDER, "2.hepial");
+        String[] mock = Utils.buildArgs(TESTS_FOLDER, "2.hepial");
         assertThrows(IncompatibleTypeException.class, () -> App.main(mock));
     }
 }

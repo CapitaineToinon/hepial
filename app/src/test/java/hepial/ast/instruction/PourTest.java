@@ -17,7 +17,7 @@ public class PourTest extends SemantiqueTest {
 
     @Test
     public void pour_ok() throws Exception {
-        String[] mock = Utils.BuildArgs(TESTS_FOLDER, "1.hepial");
+        String[] mock = Utils.buildArgs(TESTS_FOLDER, "1.hepial");
 
         try {
             App.main(mock);
@@ -28,25 +28,25 @@ public class PourTest extends SemantiqueTest {
 
     @Test
     public void pour_const() throws Exception {
-        String[] mock = Utils.BuildArgs(TESTS_FOLDER, "2.hepial");
+        String[] mock = Utils.buildArgs(TESTS_FOLDER, "2.hepial");
         assertThrows(AssignConstantException.class, () -> App.main(mock));
     }
 
     @Test
     public void pour_type_check_1() throws Exception {
-        String[] mock = Utils.BuildArgs(TESTS_FOLDER, "3.hepial");
+        String[] mock = Utils.buildArgs(TESTS_FOLDER, "3.hepial");
         assertThrows(IncompatibleTypeException.class, () -> App.main(mock));
     }
 
     @Test
     public void pour_type_check_2() throws Exception {
-        String[] mock = Utils.BuildArgs(TESTS_FOLDER, "4.hepial");
+        String[] mock = Utils.buildArgs(TESTS_FOLDER, "4.hepial");
         assertThrows(IncompatibleTypeException.class, () -> App.main(mock));
     }
 
     @Test
     public void pour_type_check_3() throws Exception {
-        String[] mock = Utils.BuildArgs(TESTS_FOLDER, "5.hepial");
+        String[] mock = Utils.buildArgs(TESTS_FOLDER, "5.hepial");
         assertThrows(IncompatibleTypeException.class, () -> App.main(mock));
     }
 }
