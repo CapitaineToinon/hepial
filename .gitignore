@@ -39,3 +39,6 @@ gradle-app.setting
 
 # memes
 **/*.Identifier
+
+# ignoring jasmin compiled files
+**/*.j
