@@ -302,7 +302,7 @@ public class ByteCodeGenerator implements ASTVisitor {
     @Override
     public Object visit(InfEgal node) throws Exception {
         // TODO Auto-generated method stub
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -313,7 +313,7 @@ public class ByteCodeGenerator implements ASTVisitor {
     @Override
     public Object visit(Lire node) throws Exception {
         // TODO Auto-generated method stub
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -360,7 +360,7 @@ public class ByteCodeGenerator implements ASTVisitor {
     @Override
     public Object visit(Pour node) throws Exception {
         // TODO Auto-generated method stub
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -410,7 +410,7 @@ public class ByteCodeGenerator implements ASTVisitor {
     @Override
     public Object visit(Tilda node) throws Exception {
         // TODO Auto-generated method stub
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
