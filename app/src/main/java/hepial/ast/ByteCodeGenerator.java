@@ -310,8 +310,16 @@ public class ByteCodeGenerator implements ASTVisitor {
 
     @Override
     public Object visit(Lire node) throws Exception {
-        // TODO Auto-generated method stub
-        return null;
+        Idf idf = node.GetDestination();
+        int index = variableTable.get(idf.GetNom());
+        String code = "";
+        code += ln(f("new java/util/Scanner"));
+        code += ln(f("dup"));
+        code += ln(f("getstatic java/lang/System/in Ljava/io/InputStream;"));
+        code += ln(f("invokespecial java/util/Scanner/<init>(Ljava/io/InputStream;)V"));
+        code += ln(f("invokevirtual java/util/Scanner/nextInt()I"));
+        code += ln(c(f("istore %s", index), idf.GetNom()));
+        return code;
     }
 
     @Override

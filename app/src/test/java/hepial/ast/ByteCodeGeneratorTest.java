@@ -147,4 +147,17 @@ public class ByteCodeGeneratorTest {
         String actual = (String) program.accept(generator);
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void generator_teacher_9() throws Exception {
+        String hepial = "9.hepial";
+        String bytecode = "9.bytecode";
+
+        Path source = TESTS_FOLDER.resolve(hepial);
+        DeclarationProgramme program = getProgram(source);
+        ByteCodeGenerator generator = getGenerator();
+        String expected = Utils.readResource(TESTS_FOLDER.resolve(bytecode));
+        String actual = (String) program.accept(generator);
+        assertEquals(expected, actual);
+    }
 }
