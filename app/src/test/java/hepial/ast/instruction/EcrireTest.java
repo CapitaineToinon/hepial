@@ -3,23 +3,26 @@ package hepial.ast.instruction;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.fail;
 
+import java.nio.file.Path;
+
 import org.junit.Test;
 
-import hepial.App;
 import hepial.SemantiqueTest;
 import hepial.Utils;
+import hepial.ast.AnalyseSemantique;
 import hepial.ast.exceptions.IncompatibleTypeException;
 import hepial.ast.exceptions.SemantiqueException;
 
 public class EcrireTest extends SemantiqueTest {
-    private final String TESTS_FOLDER = "ast/instruction/ecrire";
+    private final Path TESTS_FOLDER = Utils.resources.resolve("ast/instruction/ecrire");
 
     @Test
     public void ecrire_ok() throws Exception {
-        String[] mock = Utils.buildArgs(TESTS_FOLDER, "1.hepial");
+        DeclarationProgramme program = Utils.getProgram(TESTS_FOLDER.resolve("1.hepial"));
+        AnalyseSemantique semantique = new AnalyseSemantique();
 
         try {
-            App.main(mock);
+            program.accept(semantique);
         } catch (SemantiqueException e) {
             fail("should not have failed");
         }
@@ -27,7 +30,8 @@ public class EcrireTest extends SemantiqueTest {
 
     @Test
     public void ecrire_type_check() throws Exception {
-        String[] mock = Utils.buildArgs(TESTS_FOLDER, "2.hepial");
-        assertThrows(IncompatibleTypeException.class, () -> App.main(mock));
+        DeclarationProgramme program = Utils.getProgram(TESTS_FOLDER.resolve("2.hepial"));
+        AnalyseSemantique semantique = new AnalyseSemantique();
+        assertThrows(IncompatibleTypeException.class, () -> program.accept(semantique));
     }
 }

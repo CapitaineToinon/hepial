@@ -1,11 +1,9 @@
 package hepial.ast;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import hepial.TableDesSymboles;
-import hepial.Type;
 import hepial.ast.expression.*;
 import hepial.ast.expression.binaire.arithmetique.*;
 import hepial.ast.expression.binaire.relation.*;

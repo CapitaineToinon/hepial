@@ -2,16 +2,13 @@ package hepial.ast;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.FileReader;
 import java.nio.file.Path;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import hepial.Lexer;
 import hepial.TableDesSymboles;
 import hepial.Utils;
-import hepial.parser;
 import hepial.ast.instruction.DeclarationProgramme;
 
 public class ByteCodeGeneratorTest {
@@ -24,11 +21,7 @@ public class ByteCodeGeneratorTest {
     }
 
     private static DeclarationProgramme getProgram(Path source) throws Exception {
-        FileReader file = new FileReader(source.toString());
-        Lexer myTP = new Lexer(file);
-        parser parser = new parser(myTP, source.getFileName().toString());
-        DeclarationProgramme program = (DeclarationProgramme) parser.parse().value;
-
+        DeclarationProgramme program = Utils.getProgram(source);
         AnalyseSemantique analyseur = new AnalyseSemantique();
         program.accept(analyseur);
         return program;

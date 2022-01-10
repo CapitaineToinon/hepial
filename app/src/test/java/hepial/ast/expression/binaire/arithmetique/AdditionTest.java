@@ -3,23 +3,27 @@ package hepial.ast.expression.binaire.arithmetique;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.fail;
 
+import java.nio.file.Path;
+
 import org.junit.Test;
 
 import hepial.Utils;
+import hepial.ast.AnalyseSemantique;
 import hepial.ast.exceptions.IncompatibleTypeException;
 import hepial.ast.exceptions.SemantiqueException;
-import hepial.App;
+import hepial.ast.instruction.DeclarationProgramme;
 import hepial.SemantiqueTest;
 
 public class AdditionTest extends SemantiqueTest {
-    private final String TESTS_FOLDER = "ast/expression/binaire/arithmetique/addition";
+    private final Path TESTS_FOLDER = Utils.resources.resolve("ast/expression/binaire/arithmetique/addition");
 
     @Test
     public void addition_ok() throws Exception {
-        String[] mock = Utils.buildArgs(TESTS_FOLDER, "1.hepial");
+        DeclarationProgramme program = Utils.getProgram(TESTS_FOLDER.resolve("1.hepial"));
+        AnalyseSemantique semantique = new AnalyseSemantique();
 
         try {
-            App.main(mock);
+            program.accept(semantique);
         } catch (SemantiqueException e) {
             fail("should not have failed");
         }
@@ -27,13 +31,15 @@ public class AdditionTest extends SemantiqueTest {
 
     @Test
     public void addition_type_check_1() throws Exception {
-        String[] mock = Utils.buildArgs(TESTS_FOLDER, "2.hepial");
-        assertThrows(IncompatibleTypeException.class, () -> App.main(mock));
+        DeclarationProgramme program = Utils.getProgram(TESTS_FOLDER.resolve("2.hepial"));
+        AnalyseSemantique semantique = new AnalyseSemantique();
+        assertThrows(IncompatibleTypeException.class, () -> program.accept(semantique));
     }
 
     @Test
     public void addition_type_check_2() throws Exception {
-        String[] mock = Utils.buildArgs(TESTS_FOLDER, "3.hepial");
-        assertThrows(IncompatibleTypeException.class, () -> App.main(mock));
+        DeclarationProgramme program = Utils.getProgram(TESTS_FOLDER.resolve("3.hepial"));
+        AnalyseSemantique semantique = new AnalyseSemantique();
+        assertThrows(IncompatibleTypeException.class, () -> program.accept(semantique));
     }
 }
