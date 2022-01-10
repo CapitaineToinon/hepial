@@ -69,4 +69,43 @@ public class ByteCodeGeneratorTest {
         String actual = (String) program.accept(generator);
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void generator_teacher_3() throws Exception {
+        String hepial = "3.hepial";
+        String bytecode = "3.bytecode";
+
+        Path source = TESTS_FOLDER.resolve(hepial);
+        DeclarationProgramme program = getProgram(source);
+        ByteCodeGenerator generator = getGenerator();
+        String expected = Utils.readResource(TESTS_FOLDER.resolve(bytecode));
+        String actual = (String) program.accept(generator);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void generator_teacher_4() throws Exception {
+        String hepial = "4.hepial";
+        String bytecode = "4.bytecode";
+
+        Path source = TESTS_FOLDER.resolve(hepial);
+        DeclarationProgramme program = getProgram(source);
+        ByteCodeGenerator generator = getGenerator();
+        String expected = Utils.readResource(TESTS_FOLDER.resolve(bytecode));
+        String actual = (String) program.accept(generator);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void generator_teacher_5() throws Exception {
+        String hepial = "5.hepial";
+        String bytecode = "5.bytecode";
+
+        Path source = TESTS_FOLDER.resolve(hepial);
+        DeclarationProgramme program = getProgram(source);
+        ByteCodeGenerator generator = getGenerator();
+        String expected = Utils.readResource(TESTS_FOLDER.resolve(bytecode));
+        String actual = (String) program.accept(generator);
+        assertEquals(expected, actual);
+    }
 }

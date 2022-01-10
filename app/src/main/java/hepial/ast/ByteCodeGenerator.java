@@ -82,6 +82,21 @@ public class ByteCodeGenerator implements ASTVisitor {
         return String.format("label_%d", labelId++);
     }
 
+    private String buildCmp(Relation node, String instruction) throws Exception {
+        String code = "";
+        code += (String) node.GetGauche().accept(this);
+        code += (String) node.GetDroite().accept(this);
+        String thenLabel = nextLabel();
+        String finallyLabel = nextLabel();
+        code += ln(f("if_icmp%s %s", instruction, thenLabel));
+        code += ln(f("iconst_0"));
+        code += ln(f("goto %s", finallyLabel));
+        code += ln(f("%s:", thenLabel));
+        code += ln(f("iconst_1"));
+        code += ln(f("%s:", finallyLabel));
+        return code;
+    }
+
     @Override
     public Object visit(Addition node) throws Exception {
         String code = "";
@@ -122,24 +137,25 @@ public class ByteCodeGenerator implements ASTVisitor {
 
     @Override
     public Object visit(Condition node) throws Exception {
-        String code = (String) node.GetCondition().accept(this);
-
-        String elseLabel = nextLabel();
-        String finallyLabel = nextLabel();
-
         if (node.GetElseInstructions().isPresent()) {
+            String elseLabel = nextLabel();
+            String finallyLabel = nextLabel();
+            String code = (String) node.GetCondition().accept(this);
             code += ln(f("if_icmpne %s", elseLabel));
             code += node.GetThenInstructions().accept(this);
             code += ln(f("goto %s", finallyLabel));
             code += ln(f("%s:", elseLabel));
             code += node.GetElseInstructions().get().accept(this);
             code += ln(f("%s:", finallyLabel));
+            return code;
         } else {
+            String code = (String) node.GetCondition().accept(this);
+            String finallyLabel = nextLabel();
             code += ln(f("if_icmpne %s", finallyLabel));
             code += node.GetThenInstructions().accept(this);
             code += ln(f("%s:", finallyLabel));
+            return code;
         }
-        return code;
     }
 
     @Override
@@ -206,8 +222,7 @@ public class ByteCodeGenerator implements ASTVisitor {
 
     @Override
     public Object visit(Diff node) throws Exception {
-        // TODO Auto-generated method stub
-        return null;
+        return buildCmp(node, "ne");
     }
 
     @Override
@@ -234,9 +249,9 @@ public class ByteCodeGenerator implements ASTVisitor {
                 type = "I";
                 break;
             case Booleen:
+                value = (String) node.GetSource().accept(this);
                 String elseLabel = nextLabel();
                 String finallyLabel = nextLabel();
-                value = (String) node.GetSource().accept(this);
                 value += ln(f("ifeq %s", elseLabel));
                 value += ln(f("ldc \"vrai\""));
                 value += ln(f("goto %s", finallyLabel));
@@ -260,18 +275,16 @@ public class ByteCodeGenerator implements ASTVisitor {
 
     @Override
     public Object visit(Egal node) throws Exception {
-        String code = "";
-        code += node.GetGauche().accept(this);
-        code += node.GetDroite().accept(this);
-        code += ln(f("isub"));
-        code += ln(f("ldc 0"));
-        return code;
+        return buildCmp(node, "eq");
     }
 
     @Override
     public Object visit(Et node) throws Exception {
-        // TODO Auto-generated method stub
-        return null;
+        String code = "";
+        code += (String) node.GetGauche().accept(this);
+        code += (String) node.GetDroite().accept(this);
+        code += ln(f("iand"));
+        return code;
     }
 
     @Override
@@ -294,8 +307,7 @@ public class ByteCodeGenerator implements ASTVisitor {
 
     @Override
     public Object visit(Inferieur node) throws Exception {
-        // TODO Auto-generated method stub
-        return null;
+        return buildCmp(node, "lt");
     }
 
     @Override
@@ -318,20 +330,31 @@ public class ByteCodeGenerator implements ASTVisitor {
 
     @Override
     public Object visit(Non node) throws Exception {
-        // TODO Auto-generated method stub
-        return null;
+        String code = "";
+        code += (String) node.GetOperande().accept(this);
+        String thenLabel = nextLabel();
+        String finallyLabel = nextLabel();
+        code += ln(f("ifeq %s", thenLabel));
+        code += ln(f("iconst_0"));
+        code += ln(f("goto %s", finallyLabel));
+        code += ln(f("%s:", thenLabel));
+        code += ln(f("iconst_1"));
+        code += ln(f("%s:", finallyLabel));
+        return code;
     }
 
     @Override
     public Object visit(Ou node) throws Exception {
-        // TODO Auto-generated method stub
-        return null;
+        String code = "";
+        code += node.GetGauche().accept(this);
+        code += node.GetDroite().accept(this);
+        code += ln(f("ior"));
+        return code;
     }
 
     @Override
     public Object visit(Parentheses node) throws Exception {
-        // TODO Auto-generated method stub
-        return null;
+        return node.getExpression().accept(this);
     }
 
     @Override
@@ -360,14 +383,12 @@ public class ByteCodeGenerator implements ASTVisitor {
 
     @Override
     public Object visit(SupEgal node) throws Exception {
-        // TODO Auto-generated method stub
-        return null;
+        return buildCmp(node, "ge");
     }
 
     @Override
     public Object visit(Superieur node) throws Exception {
-        // TODO Auto-generated method stub
-        return null;
+        return buildCmp(node, "gt");
     }
 
     @Override
