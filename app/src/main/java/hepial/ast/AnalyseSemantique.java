@@ -375,6 +375,9 @@ public class AnalyseSemantique implements ASTVisitor {
               exp.GetType().GetLabel()));
     }
 
+    // mark the variable as assigned
+    TableDesSymboles.variables.get(exp.GetNom()).setValue(true);
+
     return null;
   }
 
