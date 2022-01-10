@@ -13,7 +13,6 @@ import hepial.ast.instruction.*;
 import java.util.*;
 
 public class SourceCodeGenerator implements ASTVisitor {
-
     /**
      * Generated code
      */

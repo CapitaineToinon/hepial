@@ -1,10 +1,14 @@
 package hepial;
 
 import hepial.ast.AnalyseSemantique;
+import hepial.ast.ByteCodeGenerator;
 import hepial.ast.SourceCodeGenerator;
 import hepial.ast.instruction.DeclarationProgramme;
 
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.nio.file.Path;
 
 public class App {
 	public static void main(String[] args) throws Exception {
@@ -81,8 +85,30 @@ public class App {
 			throw e;
 		}
 
-		// production du code
-		// todo
+		try {
+			// jasmin code generation
+			ByteCodeGenerator generator = new ByteCodeGenerator();
+			String code = (String) program.accept(generator);
+
+			java.util.Scanner scanner = new java.util.Scanner(code);
+			int nb = 1;
+			while (scanner.hasNextLine()) {
+				String line = scanner.nextLine();
+				System.out.println(String.format("%d	%s", nb++, line));
+			}
+			scanner.close();
+
+			File source = new File(args[0]);
+			File dest = new File(source.getParentFile(), "hepial.j");
+			FileWriter myWriter = new FileWriter(dest);
+
+			myWriter.write(code);
+			myWriter.close();
+			dest.createNewFile();
+		} catch (Exception e) {
+			System.out.println("[test.java] AnalyseSemantique failed");
+			throw e;
+		}
 
 		System.out.println("#############################################################");
 	}

@@ -8,6 +8,7 @@ import java_cup.runtime.*;
 %column
 %cup
 %debug
+%public
 
 %{
 
