@@ -15,7 +15,7 @@ public class ByteCodeGenerator implements ASTVisitor {
     private int variableTableIndex = 0;
     private int labelIndex = 0;
     private boolean indent = false;
-    private boolean pretty = false;
+    private boolean pretty = true;
 
     // Index table used by jasmin in the .var instruction
     // called variables but also contains constantes
@@ -452,14 +452,7 @@ public class ByteCodeGenerator implements ASTVisitor {
     }
 
     @Override
-    public Object visit(Tilda node) throws Exception {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
     public Object visit(Vrai node) throws Exception {
         return ln(f("ldc 1"));
     }
-
 }

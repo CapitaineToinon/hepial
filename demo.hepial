@@ -24,7 +24,6 @@ debutprg
   d = faux ou vrai;
   d = non vrai;
   b = - b;
-  b = ~ b;
 
   ecrire "salut";
   lire n;

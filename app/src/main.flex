@@ -30,7 +30,6 @@ semicolon = ;
 equal = "="
 openparent = "("
 closeparent = ")"
-tilda = "~"
 
 // ignored
 comment = \/\/.*
@@ -84,7 +83,6 @@ faux            { return new Symbol(sym.FALSE, yyline, yycolumn); }
 et              { return new Symbol(sym.AND, yyline, yycolumn); }
 ou              { return new Symbol(sym.OR, yyline, yycolumn); }
 
-{tilda}         { return new Symbol(sym.TILDA, yyline, yycolumn); }
 non             { return new Symbol(sym.NOT, yyline, yycolumn); }
 
 {ident}         { return new Symbol(sym.IDENT, yyline, yycolumn, yytext()); }

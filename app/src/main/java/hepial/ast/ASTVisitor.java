@@ -20,7 +20,6 @@ import hepial.ast.expression.binaire.relation.SupEgal;
 import hepial.ast.expression.binaire.relation.Superieur;
 import hepial.ast.expression.unaire.Moins;
 import hepial.ast.expression.unaire.Non;
-import hepial.ast.expression.unaire.Tilda;
 import hepial.ast.instruction.Affectation;
 import hepial.ast.instruction.Bloc;
 import hepial.ast.instruction.Condition;
@@ -93,8 +92,6 @@ public interface ASTVisitor {
     Object visit(Superieur node) throws Exception;
 
     Object visit(Tantque node) throws Exception;
-
-    Object visit(Tilda node) throws Exception;
 
     Object visit(Vrai node) throws Exception;
 }

@@ -402,16 +402,6 @@ public class AnalyseSemantique implements ASTVisitor {
   }
 
   @Override
-  public Object visit(Tilda node) throws Exception {
-    // this is the same as Moins
-    Expression op = node.GetOperande();
-    op.accept(this);
-
-    ForceUnaireType(node, Type.Entier);
-    return null;
-  }
-
-  @Override
   public Object visit(Parentheses node) throws Exception {
     Expression exp = node.getExpression();
     exp.accept(this);

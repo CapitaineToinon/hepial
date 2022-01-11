@@ -200,10 +200,7 @@ op_bin            ::= PLUS:o
                       OR:o
                       {: RESULT = new Ou(getFl(), oleft, oright); :};
 
-op_una            ::= TILDA:o
-                      {: RESULT = new Tilda(getFl(), oleft, oright); :}
-                      |
-                      NOT:o
+op_una            ::= NOT:o
                       {: RESULT = new Non(getFl(), oleft, oright); :}
                       |
                       MINUS:o

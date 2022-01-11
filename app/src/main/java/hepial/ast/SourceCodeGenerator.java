@@ -305,18 +305,6 @@ public class SourceCodeGenerator implements ASTVisitor {
         return null;
     }
 
-    public Object visit(Tilda node) throws Exception {
-        code += "~";
-        node.GetOperande().accept(this);
-        return null;
-    }
-
-    /*
-     * public Object visit(Vrai node) throws Exception{
-     * code += "vrai";
-     * return null;
-     * }
-     */
     public Object visit(Vrai node) throws Exception {
         code += "vrai";
         return null;
