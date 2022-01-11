@@ -1,0 +1,19 @@
+programme Fibonacci
+
+entier n, i;
+entier x, y;
+entier tmp;
+
+debutprg
+  ecrire "Choisissez n";
+  lire n;
+
+  x = 0;
+  y = 1;
+  pour i allantde 1 a n faire
+    ecrire y;
+    tmp = x + y;
+    x = y;
+    y = tmp;
+  finpour
+finprg

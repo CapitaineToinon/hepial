@@ -1,0 +1,56 @@
+programme Binaire
+
+entier i;
+entier nombre;
+entier resultat;
+entier modulo;
+entier bit;
+entier tmp;
+entier power;
+constante entier maxbits = 8;
+booleen continue;
+
+debutprg
+    tmp = 0;
+    continue = vrai;
+    bit = 0;
+    resultat = 0;
+
+    ecrire "Entrez un nombre";
+    lire nombre;
+
+    tantque continue faire
+        // divise le nombre par 2 n bit fois
+        tmp = nombre;
+        pour i allantde 1 a bit faire
+            tmp = nombre / 2;
+        finpour
+
+        // si le reste est 0 alors le bit est 0
+        modulo = nombre - ((nombre / 2) * 2);
+    
+        power = 1;
+        pour i allantde 0 a bit - 1 faire
+            power = power * 10;
+        finpour
+
+        // sauvegare le bit
+        resultat = resultat + (power * modulo);
+
+        // equivalent a un shift right
+        nombre = nombre / 2;
+
+        bit = bit + 1;
+        
+        si nombre == 0 alors
+            continue = faux;
+        finsi
+
+        si bit == maxbits alors
+            continue = faux;
+        finsi
+    fintantque
+
+    // fini!
+    ecrire resultat;
+finprg
