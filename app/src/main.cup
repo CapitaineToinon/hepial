@@ -43,11 +43,11 @@ parser code {:
   }
 :};
 
-terminal PRG, STARTPRG, ENDPRG, CONSTANT, SEMICOLON, OPENPARENT;
-terminal CLOSEPARENT, COMMA, EQUAL;
-terminal READ, WRITE, IF, THEN, ELSE, ENDIF, WHILE, DO, ENDWHILE;
-terminal FOR, FROM, TO, ENDFOR, TRUE, FALSE,  PLUS, MINUS, TIMES, DIVIDE;
-terminal EQUALS, DIFF, INF, INFEQUAL, SUP, SUPEQUAL, AND, OR, TILDA, NOT;
+terminal PRG, STARTPRG, ENDPRG, CONSTANT, SEMICOLON, OPENPARENT,
+  CLOSEPARENT, COMMA, EQUAL,
+  READ, WRITE, IF, THEN, ELSE, ENDIF, WHILE, DO, ENDWHILE,
+  FOR, FROM, TO, ENDFOR, TRUE, FALSE,  PLUS, MINUS, TIMES, DIVIDE,
+  EQUALS, DIFF, INF, INFEQUAL, SUP, SUPEQUAL, AND, OR, NOT, UMINUS;
 
 terminal String IDENT, STRINGCONST, TINTEGER, TBOOLEAN;
 terminal int INTEGERCONST;
@@ -74,9 +74,10 @@ non terminal ArrayList<Idf> l_ident;
 non terminal Type type, typebase;
 
 // Precedences
-precedence left PLUS, MINUS, TIMES, DIVIDE, EQUALS, DIFF;
-precedence left INF, SUP, INFEQUAL, SUPEQUAL, AND, OR;
-precedence right TILDA, NOT;
+precedence left PLUS, MINUS, OR;
+precedence left TIMES, DIVIDE, AND;
+precedence left EQUALS, DIFF, INF, SUP, INFEQUAL, SUPEQUAL;
+precedence right UMINUS, NOT;
 
 program           ::= header:p declar_lst:decralations STARTPRG body:instructions ENDPRG
                       {:
@@ -143,68 +144,122 @@ declar_const      ::= CONSTANT type:t IDENT:id EQUAL expr:e SEMICOLON
                         RESULT = new DeclarationConstant(t, idf, e, getFl(), 0, 0);
                       :};
 
-expr              ::= expr:left op_bin:op expr:right
+expr              ::= expr:a PLUS expr:b
                       {:
-                        // build binary expression
-                        op.LierGauche(left);
-                        op.LierDroit(right);
-                        RESULT = op;  
+                        Addition op = new Addition(getFl(), aleft, aright);
+                        op.LierGauche(a);
+                        op.LierDroit(b);
+                        RESULT = op;
                       :}
                       |
-                      op_una:op expr:exp
+                      expr:a MINUS expr:b
                       {:
-                        // build unary expression
+                        Soustraction op = new Soustraction(getFl(), aleft, aright);
+                        op.LierGauche(a);
+                        op.LierDroit(b);
+                        RESULT = op;
+                      :}
+                      |
+                      expr:a TIMES expr:b
+                      {:
+                        Produit op = new Produit(getFl(), aleft, aright);
+                        op.LierGauche(a);
+                        op.LierDroit(b);
+                        RESULT = op;
+                      :}
+                      |
+                      expr:a DIVIDE expr:b
+                      {:
+                        Division op = new Division(getFl(), aleft, aright);
+                        op.LierGauche(a);
+                        op.LierDroit(b);
+                        RESULT = op;
+                      :}
+                      |
+                      expr:a EQUALS expr:b
+                      {:
+                        Egal op = new Egal(getFl(), aleft, aright);
+                        op.LierGauche(a);
+                        op.LierDroit(b);
+                        RESULT = op;
+                      :}
+                      |
+                      expr:a DIFF expr:b
+                      {:
+                        Diff op = new Diff(getFl(), aleft, aright);
+                        op.LierGauche(a);
+                        op.LierDroit(b);
+                        RESULT = op;
+                      :}
+                      |
+                      expr:a INF expr:b
+                      {:
+                        Inferieur op = new Inferieur(getFl(), aleft, aright);
+                        op.LierGauche(a);
+                        op.LierDroit(b);
+                        RESULT = op;
+                      :}
+                      |
+                      expr:a SUP expr:b
+                      {:
+                        Superieur op = new Superieur(getFl(), aleft, aright);
+                        op.LierGauche(a);
+                        op.LierDroit(b);
+                        RESULT = op;
+                      :}
+                      |
+                      expr:a INFEQUAL expr:b
+                      {:
+                        InfEgal op = new InfEgal(getFl(), aleft, aright);
+                        op.LierGauche(a);
+                        op.LierDroit(b);
+                        RESULT = op;
+                      :}
+                      |
+                      expr:a SUPEQUAL expr:b
+                      {:
+                        SupEgal op = new SupEgal(getFl(), aleft, aright);
+                        op.LierGauche(a);
+                        op.LierDroit(b);
+                        RESULT = op;
+                      :}
+                      |
+                      expr:a AND expr:b
+                      {:
+                        Et op = new Et(getFl(), aleft, aright);
+                        op.LierGauche(a);
+                        op.LierDroit(b);
+                        RESULT = op;
+                      :}
+                      |
+                      expr:a OR expr:b
+                      {:
+                        Ou op = new Ou(getFl(), aleft, aright);
+                        op.LierGauche(a);
+                        op.LierDroit(b);
+                        RESULT = op;
+                      :}
+                      |
+                      NOT:u expr:exp
+                      {:
+                        Non op = new Non(getFl(), uleft, uright);
                         op.lier(exp);
                         RESULT = op;
                       :}
+                      | 
+                      MINUS:u expr:exp
+                      {:
+                        Moins op = new Moins(getFl(), uleft, uright);
+                        op.lier(exp);
+                        RESULT = op;
+                      :} 
+                      %prec UMINUS
                       | 
                       OPENPARENT expr:e CLOSEPARENT
                       {: RESULT = new Parentheses(e, getFl(), eleft, eright); :}
                       | 
                       operand:operand
                       {: RESULT = operand; :};
-
-op_bin            ::= PLUS:o
-                      {: RESULT = new Addition(getFl(), oleft, oright); :}
-                      |
-                      MINUS:o
-                      {: RESULT = new Soustraction(getFl(), oleft, oright); :}
-                      |
-                      TIMES:o
-                      {: RESULT = new Produit(getFl(), oleft, oright); :}
-                      |
-                      DIVIDE:o
-                      {: RESULT = new Division(getFl(), oleft, oright); :}
-                      |
-                      EQUALS:o
-                      {: RESULT = new Egal(getFl(), oleft, oright); :} 
-                      |
-                      DIFF:o
-                      {: RESULT = new Diff(getFl(), oleft, oright); :}
-                      |
-                      INF:o
-                      {: RESULT = new Inferieur(getFl(), oleft, oright); :}
-                      |
-                      SUP:o
-                      {: RESULT = new Superieur(getFl(), oleft, oright); :}
-                      |
-                      INFEQUAL:o
-                      {: RESULT = new InfEgal(getFl(), oleft, oright); :}
-                      |
-                      SUPEQUAL:o
-                      {: RESULT = new SupEgal(getFl(), oleft, oright); :}
-                      |
-                      AND:o
-                      {: RESULT = new Et(getFl(), oleft, oright); :}
-                      |
-                      OR:o
-                      {: RESULT = new Ou(getFl(), oleft, oright); :};
-
-op_una            ::= NOT:o
-                      {: RESULT = new Non(getFl(), oleft, oright); :}
-                      |
-                      MINUS:o
-                      {: RESULT = new Moins(getFl(), oleft, oright); :};
 
 operand           ::= access:access
                       {: RESULT = access; :}

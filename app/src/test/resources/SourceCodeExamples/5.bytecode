@@ -808,14 +808,14 @@ label_181:
 invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V
 getstatic java/lang/System/out Ljava/io/PrintStream;
 ldc 0
-ldc 1
-iand
 ifeq label_182
 iconst_0
 goto label_183
 label_182:
 iconst_1
 label_183:
+ldc 1
+iand
 ifeq label_184
 ldc "vrai"
 goto label_185

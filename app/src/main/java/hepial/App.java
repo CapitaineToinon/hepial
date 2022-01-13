@@ -97,8 +97,7 @@ public class App {
 			}
 			scanner.close();
 
-			File source = new File(args[0]);
-			File dest = new File(source.getParentFile(), "hepial.j");
+			File dest = new File("hepial.j");
 			FileWriter myWriter = new FileWriter(dest);
 
 			myWriter.write(code);
