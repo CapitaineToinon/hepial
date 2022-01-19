@@ -28,7 +28,7 @@ action code {:
 :}
 
 parser code {: 
-  private String fl;
+  private String fl = "";
 
   public parser(java_cup.runtime.Scanner s, String fl) {
     this(s);

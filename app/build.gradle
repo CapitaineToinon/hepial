@@ -21,7 +21,7 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
 
     // This dependency is used by the application.
-    implementation files('lib/java-cup-11a.jar')
+    implementation files('lib/java-cup-11b.jar')
 }
 
 application {
@@ -29,17 +29,27 @@ application {
     mainClass = 'hepial.App'
 }
 
-task flex(type: Exec) {
-    commandLine 'jflex', 'src/main.flex -d src/main/java/hepial'
+task flex {
+    doFirst {
+        javaexec { 
+            main="-jar";
+            args = [
+                "lib/jflex-full-1.8.2.jar",
+                "src/main.flex",
+                "-d",
+                "src/main/java/hepial"
+            ]
+        }
+    }
 }
 
-task flexcup {
+task cup {
     dependsOn flex
     doFirst {
         javaexec { 
             main="-jar";
             args = [
-                "lib/java-cup-11a.jar",
+                "lib/java-cup-11b.jar",
                 "-destdir",
                 "src/main/java/hepial",
                 "src/main.cup"
@@ -49,15 +59,15 @@ task flexcup {
 }
 
 build {
-    dependsOn flexcup
+    dependsOn cup
 }
 
 clean {
+    delete "bin"
     delete "src/main/java/hepial/Lexer.java"
     delete "src/main/java/hepial/Lexer.java~"
     delete "src/main/java/hepial/parser.java"
     delete "src/main/java/hepial/sym.java"
-    delete "bin"
 }
 
 test {
