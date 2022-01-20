@@ -32,6 +32,7 @@ gradle-app.setting
 # Avoid ignoring libs
 !app/lib/java-cup-*.jar
 !app/lib/jflex-full-*.jar
+!app/lib/jasmin.jar
 
 # Cache of project
 .gradletasknamecache

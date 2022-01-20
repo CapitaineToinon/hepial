@@ -68,15 +68,13 @@ non terminal Ecrire write_instr;
 non terminal Lire read_instr;
 non terminal Instruction instr;
 non terminal Affectation assign;
-non terminal Unaire op_una;
-non terminal Binaire op_bin;
 non terminal ArrayList<Idf> l_ident;
 non terminal Type type, typebase;
 
 // Precedences
+precedence left EQUALS, DIFF, INF, SUP, INFEQUAL, SUPEQUAL;
 precedence left PLUS, MINUS, OR;
 precedence left TIMES, DIVIDE, AND;
-precedence left EQUALS, DIFF, INF, SUP, INFEQUAL, SUPEQUAL;
 precedence right UMINUS, NOT;
 
 program           ::= header:p declar_lst:decralations STARTPRG body:instructions ENDPRG

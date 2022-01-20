@@ -97,7 +97,7 @@ public class App {
 			}
 			scanner.close();
 
-			File dest = new File("hepial.j");
+			File dest = new File(String.format("%s.j", program.getIdentifier().GetNom()));
 			FileWriter myWriter = new FileWriter(dest);
 
 			myWriter.write(code);

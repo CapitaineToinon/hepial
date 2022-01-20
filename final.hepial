@@ -1,8 +1,0 @@
-programme Program
-
-entier n;
-
-debutprg
-    n = 5;
-    ecrire n;
-finprg
