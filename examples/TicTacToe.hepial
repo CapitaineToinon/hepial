@@ -1,0 +1,505 @@
+programme TicTacToe
+
+constante entier none = 0;
+constante entier p1 = 1;
+constante entier p2 = 2;
+
+booleen estPlayer1;
+booleen playing;
+booleen drawing;
+booleen choiceOk;
+entier winner;
+
+entier case11, case12, case13;
+entier case21, case22, case23;
+entier case31, case32, case33;
+entier col, row, tmpVal;
+entier count;
+
+debutprg
+    estPlayer1 = vrai;
+    playing = vrai;
+    drawing = vrai;
+    winner = none;
+
+    count = 0;
+    case11 = none;
+    case12 = none;
+    case13 = none;
+    case21 = none;
+    case22 = none;
+    case23 = none;
+    case31 = none;
+    case32 = none;
+    case33 = none;
+
+    tantque drawing faire
+        // header
+        ecrire "   1   2   3";
+
+        // draw line 1
+        si case11 == none et case12 == none et case13 == none alors
+            ecrire "1    |   |   ";
+        finsi
+
+        si case11 == p1 et case12 == none et case13 == none alors
+            ecrire "1  X |   |   ";
+        finsi
+
+        si case11 == none et case12 == p1 et case13 == none alors
+            ecrire "1    | X |   ";
+        finsi
+
+        si case11 == none et case12 == none et case13 == p1 alors
+            ecrire "1    |   | X ";
+        finsi
+
+        si case11 == p1 et case12 == p1 et case13 == none alors
+            ecrire "1  X | X |   ";
+        finsi
+
+        si case11 == none et case12 == p1 et case13 == p1 alors
+            ecrire "1    | X | X ";
+        finsi
+
+        si case11 == p1 et case12 == none et case13 == p1 alors
+            ecrire "1  X |   | X ";
+        finsi
+
+        si case11 == p1 et case12 == p1 et case13 == p1 alors
+            ecrire "1  X | X | X ";
+        finsi
+
+        si case11 == p2 et case12 == none et case13 == none alors
+            ecrire "1  O |   |   ";
+        finsi
+
+        si case11 == none et case12 == p2 et case13 == none alors
+            ecrire "1    | O |   ";
+        finsi
+
+        si case11 == none et case12 == none et case13 == p2 alors
+            ecrire "1    |   | O ";
+        finsi
+
+        si case11 == p2 et case12 == p2 et case13 == none alors
+            ecrire "1  O | O |   ";
+        finsi
+
+        si case11 == none et case12 == p2 et case13 == p2 alors
+            ecrire "1    | O | O ";
+        finsi
+
+        si case11 == p2 et case12 == none et case13 == p2 alors
+            ecrire "1  O |   | O ";
+        finsi
+
+        si case11 == p2 et case12 == p2 et case13 == p2 alors
+            ecrire "1  O | O | O ";
+        finsi
+
+        si case11 == p1 et case12 == p2 et case13 == none alors
+            ecrire "1  X | O |   ";
+        finsi
+
+        si case11 == p1 et case12 == none et case13 == p2 alors
+            ecrire "1  X |   | O  ";
+        finsi
+
+        si case11 == none et case12 == p1 et case13 == p2 alors
+            ecrire "1    | X | O  ";
+        finsi
+
+        si case11 == p1 et case12 == p2 et case13 == p2 alors
+            ecrire "1  X | O | O  ";
+        finsi
+
+        si case11 == p1 et case12 == p1 et case13 == p2 alors
+            ecrire "1  X | X | O  ";
+        finsi
+
+        si case11 == p2 et case12 == p1 et case13 == none alors
+            ecrire "1  O | X |    ";
+        finsi
+
+        si case11 == p2 et case12 == none et case13 == p1 alors
+            ecrire "1  O |   | X  ";
+        finsi
+
+        si case11 == p2 et case12 == p1 et case13 == p1 alors
+            ecrire "1  O | X | X  ";
+        finsi
+
+        si case11 == p1 et case12 == p2 et case13 == p1 alors
+            ecrire "1  X | O | X  ";
+        finsi
+        
+        // separator
+        ecrire "  ---|---|---";
+
+        // draw line 2
+        si case21 == none et case22 == none et case23 == none alors
+            ecrire "2    |   |   ";
+        finsi
+
+        si case21 == p1 et case22 == none et case23 == none alors
+            ecrire "2  X |   |   ";
+        finsi
+
+        si case21 == none et case22 == p1 et case23 == none alors
+            ecrire "2    | X |   ";
+        finsi
+
+        si case21 == none et case22 == none et case23 == p1 alors
+            ecrire "2    |   | X ";
+        finsi
+
+        si case21 == p1 et case22 == p1 et case23 == none alors
+            ecrire "2  X | X |   ";
+        finsi
+
+        si case21 == none et case22 == p1 et case23 == p1 alors
+            ecrire "2    | X | X ";
+        finsi
+
+        si case21 == p1 et case22 == none et case23 == p1 alors
+            ecrire "2  X |   | X ";
+        finsi
+
+        si case21 == p1 et case22 == p1 et case23 == p1 alors
+            ecrire "2  X | X | X ";
+        finsi
+
+        si case21 == p2 et case22 == none et case23 == none alors
+            ecrire "2  O |   |   ";
+        finsi
+
+        si case21 == none et case22 == p2 et case23 == none alors
+            ecrire "2    | O |   ";
+        finsi
+
+        si case21 == none et case22 == none et case23 == p2 alors
+            ecrire "2    |   | O ";
+        finsi
+
+        si case21 == p2 et case22 == p2 et case23 == none alors
+            ecrire "2  O | O |   ";
+        finsi
+
+        si case21 == none et case22 == p2 et case23 == p2 alors
+            ecrire "2    | O | O ";
+        finsi
+
+        si case21 == p2 et case22 == none et case23 == p2 alors
+            ecrire "2  O |   | O ";
+        finsi
+
+        si case21 == p2 et case22 == p2 et case23 == p2 alors
+            ecrire "2  O | O | O ";
+        finsi
+
+        si case21 == p1 et case22 == p2 et case23 == none alors
+            ecrire "2  X | O |   ";
+        finsi
+
+        si case21 == p1 et case22 == none et case23 == p2 alors
+            ecrire "2  X |   | O  ";
+        finsi
+
+        si case21 == none et case22 == p1 et case23 == p2 alors
+            ecrire "2    | X | O  ";
+        finsi
+
+        si case21 == p1 et case22 == p2 et case23 == p2 alors
+            ecrire "2  X | O | O  ";
+        finsi
+
+        si case21 == p1 et case22 == p1 et case23 == p2 alors
+            ecrire "2  X | X | O  ";
+        finsi
+
+        si case21 == p2 et case22 == p1 et case23 == none alors
+            ecrire "2  O | X |    ";
+        finsi
+
+        si case21 == p2 et case22 == none et case23 == p1 alors
+            ecrire "2  O |   | X  ";
+        finsi
+
+        si case21 == p2 et case22 == p1 et case23 == p1 alors
+            ecrire "2  O | X | X  ";
+        finsi
+
+        si case21 == p1 et case22 == p2 et case23 == p1 alors
+            ecrire "2  X | O | X  ";
+        finsi
+
+        // separator
+        ecrire "  ---|---|---";
+
+        // draw line 3
+        si case31 == none et case32 == none et case33 == none alors
+            ecrire "3    |   |   ";
+        finsi
+
+        si case31 == p1 et case32 == none et case33 == none alors
+            ecrire "3  X |   |   ";
+        finsi
+
+        si case31 == none et case32 == p1 et case33 == none alors
+            ecrire "3    | X |   ";
+        finsi
+
+        si case31 == none et case32 == none et case33 == p1 alors
+            ecrire "3    |   | X ";
+        finsi
+
+        si case31 == p1 et case32 == p1 et case33 == none alors
+            ecrire "3  X | X |   ";
+        finsi
+
+        si case31 == none et case32 == p1 et case33 == p1 alors
+            ecrire "3    | X | X ";
+        finsi
+
+        si case31 == p1 et case32 == none et case33 == p1 alors
+            ecrire "3  X |   | X ";
+        finsi
+
+        si case31 == p1 et case32 == p1 et case33 == p1 alors
+            ecrire "3  X | X | X ";
+        finsi
+
+        si case31 == p2 et case32 == none et case33 == none alors
+            ecrire "3  O |   |   ";
+        finsi
+
+        si case31 == none et case32 == p2 et case33 == none alors
+            ecrire "3    | O |   ";
+        finsi
+
+        si case31 == none et case32 == none et case33 == p2 alors
+            ecrire "3    |   | O ";
+        finsi
+
+        si case31 == p2 et case32 == p2 et case33 == none alors
+            ecrire "3  O | O |   ";
+        finsi
+
+        si case31 == none et case32 == p2 et case33 == p2 alors
+            ecrire "3    | O | O ";
+        finsi
+
+        si case31 == p2 et case32 == none et case33 == p2 alors
+            ecrire "3  O |   | O ";
+        finsi
+
+        si case31 == p2 et case32 == p2 et case33 == p2 alors
+            ecrire "3  O | O | O ";
+        finsi
+
+        si case31 == p1 et case32 == p2 et case33 == none alors
+            ecrire "3  X | O |   ";
+        finsi
+
+        si case31 == p1 et case32 == none et case33 == p2 alors
+            ecrire "3  X |   | O  ";
+        finsi
+
+        si case31 == none et case32 == p1 et case33 == p2 alors
+            ecrire "3    | X | O  ";
+        finsi
+
+        si case31 == p1 et case32 == p2 et case33 == p2 alors
+            ecrire "3  X | O | O  ";
+        finsi
+
+        si case31 == p1 et case32 == p1 et case33 == p2 alors
+            ecrire "3  X | X | O  ";
+        finsi
+
+        si case31 == p2 et case32 == p1 et case33 == none alors
+            ecrire "3  O | X |    ";
+        finsi
+
+        si case31 == p2 et case32 == none et case33 == p1 alors
+            ecrire "3  O |   | X  ";
+        finsi
+
+        si case31 == p2 et case32 == p1 et case33 == p1 alors
+            ecrire "3  O | X | X  ";
+        finsi
+
+        si case31 == p1 et case32 == p2 et case33 == p1 alors
+            ecrire "3  X | O | X  ";
+        finsi
+
+        si playing alors 
+            si estPlayer1 alors
+                ecrire "Player 1:";
+                tmpVal = p1;
+            sinon
+                ecrire "Player 2:";
+                tmpVal = p2;
+            finsi
+
+            choiceOk = faux;
+            tantque non choiceOk faire
+                row = -1;
+                tantque row > 3 ou row < 1 faire
+                    ecrire "choose a row (1..3):";
+                    lire row;
+                fintantque
+
+                col = -1;
+                tantque col > 3 ou col < 1 faire
+                    ecrire "choose a column (1..3):";
+                    lire col;
+                fintantque
+
+                si row == 1 et col == 1 et case11 == none alors
+                    case11 = tmpVal;
+                    choiceOk = vrai;
+                finsi
+
+                si row == 1 et col == 2 et case12 == none alors
+                    case12 = tmpVal;
+                    choiceOk = vrai;
+                finsi
+
+                si row == 1 et col == 3 et case13 == none alors
+                    case13 = tmpVal;
+                    choiceOk = vrai;
+                finsi
+
+                si row == 2 et col == 1 et case21 == none alors
+                    case21 = tmpVal;
+                    choiceOk = vrai;
+                finsi
+
+                si row == 2 et col == 2 et case22 == none alors
+                    case22 = tmpVal;
+                    choiceOk = vrai;
+                finsi
+
+                si row == 2 et col == 3 et case23 == none alors
+                    case23 = tmpVal;
+                    choiceOk = vrai;
+                finsi
+
+                si row == 3 et col == 1 et case31 == none alors
+                    case31 = tmpVal;
+                    choiceOk = vrai;
+                finsi
+
+                si row == 3 et col == 2 et case32 == none alors
+                    case32 = tmpVal;
+                    choiceOk = vrai;
+                finsi
+
+                si row == 3 et col == 3 et case33 == none alors
+                    case33 = tmpVal;
+                    choiceOk = vrai;
+                finsi
+
+                si non choiceOk alors
+                    ecrire "Spot already taken";
+                finsi
+            fintantque
+
+            estPlayer1 = non estPlayer1;
+
+            // row 1
+            si case11 == case12 et case12 == case13 et case13 <> none alors
+                si case13 == p1 alors
+                    winner = p1;
+                sinon
+                    winner = p2;
+                finsi
+            finsi
+            
+            // row 2
+            si case21 == case22 et case22 == case23 et case23 <> none alors
+                si case23 == p1 alors
+                    winner = p1;
+                sinon
+                    winner = p2;
+                finsi
+            finsi
+
+            // row 3
+            si case31 == case32 et case32 == case33 et case33 <> none alors
+                si case33 == p1 alors
+                    winner = p1;
+                sinon
+                    winner = p2;
+                finsi
+            finsi
+
+            // col 1
+            si case11 == case21 et case21 == case31 et case31 <> none alors
+                si case31 == p1 alors
+                    winner = p1;
+                sinon
+                    winner = p2;
+                finsi
+            finsi
+
+            // col 2
+            si case12 == case22 et case22 == case32 et case32 <> none alors
+                si case32 == p1 alors
+                    winner = p1;
+                sinon
+                    winner = p2;
+                finsi
+            finsi
+
+            // col 3
+            si case12 == case22 et case22 == case32 et case32 <> none alors
+                si case32 == p1 alors
+                    winner = p1;
+                sinon
+                    winner = p2;
+                finsi
+            finsi
+
+            // diag 1
+            si case11 == case22 et case22 == case33 et case33 <> none alors
+                si case33 == p1 alors
+                    winner = p1;
+                sinon
+                    winner = p2;
+                finsi
+            finsi
+
+            // diag 2
+            si case13 == case22 et case22 == case31 et case31 <> none alors
+                si case31 == p1 alors
+                    winner = p1;
+                sinon
+                    winner = p2;
+                finsi
+            finsi
+
+            count = count + 1;
+            si count == 9 ou winner <> none alors
+                playing = faux;
+            finsi
+        sinon
+            // to this to draw the board one last time at the end
+            drawing = faux;
+        finsi
+    fintantque
+
+    si winner == none alors
+        ecrire "It's a draw";
+    finsi
+
+    si winner == p1 alors
+        ecrire "Player 1 won!";
+    finsi
+
+    si winner == p2 alors
+        ecrire "Player 2 won!";
+    finsi
+finprg

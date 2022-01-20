@@ -72,9 +72,10 @@ non terminal ArrayList<Idf> l_ident;
 non terminal Type type, typebase;
 
 // Precedences
+precedence left AND, OR;
 precedence left EQUALS, DIFF, INF, SUP, INFEQUAL, SUPEQUAL;
-precedence left PLUS, MINUS, OR;
-precedence left TIMES, DIVIDE, AND;
+precedence left PLUS, MINUS;
+precedence left TIMES, DIVIDE;
 precedence right UMINUS, NOT;
 
 program           ::= header:p declar_lst:decralations STARTPRG body:instructions ENDPRG
